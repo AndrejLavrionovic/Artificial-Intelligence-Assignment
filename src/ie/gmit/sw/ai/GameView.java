@@ -4,8 +4,10 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 public class GameView extends JPanel implements ActionListener{
+    
+        // initial properties
 	private static final long serialVersionUID = 1L;
-	public static final int DEFAULT_VIEW_SIZE = 800;	
+	public static final int DEFAULT_VIEW_SIZE = 800; // size of window in pixels, I guess.	
 	private int cellspan = 5;	
 	private int cellpadding = 2;
 	private Maze maze;
@@ -19,6 +21,7 @@ public class GameView extends JPanel implements ActionListener{
 	private int offset = 48; //The number 0 is ASCII 48.
 	private Color[] reds = {new Color(255,160,122), new Color(139,0,0), new Color(255, 0, 0)}; //Animate enemy "dots" to make them easier to see
 	
+        
 	public GameView(Maze maze) throws Exception{
 		this.maze = maze;
 		setBackground(Color.LIGHT_GRAY);
@@ -92,6 +95,7 @@ public class GameView extends JPanel implements ActionListener{
 		zoomOut = !zoomOut;		
 	}
 
+        
 	public void actionPerformed(ActionEvent e) {	
 		if (enemy_state < 0 || enemy_state == 5){
 			enemy_state = 6;
@@ -101,6 +105,9 @@ public class GameView extends JPanel implements ActionListener{
 		this.repaint();
 	}
 	
+        // Sets array of sprites which are not only the sprites
+        // but also all other items such as weapons, help, hedges...
+        // list of items in the sprites arrey is in GameRunner.java
 	public void setSprites(Sprite[] sprites){
 		this.sprites = sprites;
 	}

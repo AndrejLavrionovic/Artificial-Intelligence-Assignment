@@ -3,6 +3,8 @@ package ie.gmit.sw.ai;
 
 public class Maze {
 	private char[][] maze;
+        
+        // Constructor
 	public Maze(int dimension){
 		maze = new char[dimension][dimension];
 		init();
@@ -25,6 +27,7 @@ public class Maze {
 		addFeature('\u003D', '0', featureNumber); //= is a Yellow Spider, 0 is a hedge
 	}
 	
+        // Builds the maze, initialy with hedges with no space, spiders and items.
 	private void init(){
 		for (int row = 0; row < maze.length; row++){
 			for (int col = 0; col < maze[row].length; col++){
@@ -33,6 +36,7 @@ public class Maze {
 		}
 	}
 	
+        // This method replaces hedges with features
 	private void addFeature(char feature, char replace, int number){
 		int counter = 0;
 		while (counter < feature){
@@ -46,6 +50,7 @@ public class Maze {
 		}
 	}
 	
+        // This method randomly populated the maze with empty spaces
 	private void buildMaze(){ 
 		for (int row = 1; row < maze.length - 1; row++){
 			for (int col = 1; col < maze[row].length - 1; col++){
@@ -59,28 +64,33 @@ public class Maze {
 		}		
 	}
 	
+        // returns maze
 	public char[][] getMaze(){
 		return this.maze;
 	}
 	
+        // get sell content
 	public char get(int row, int col){
 		return this.maze[row][col];
 	}
 	
+        // set sell content with char c
 	public void set(int row, int col, char c){
 		this.maze[row][col] = c;
 	}
 	
+        // returns maze length in cells
 	public int size(){
 		return this.maze.length;
 	}
 	
+        // maze in string representation for console
 	public String toString(){
 		StringBuffer sb = new StringBuffer();
 		for (int row = 0; row < maze.length; row++){
 			for (int col = 0; col < maze[row].length; col++){
 				sb.append(maze[row][col]);
-				if (col < maze[row].length - 1) sb.append(",");
+				//if (col < maze[row].length - 1) sb.append(",");
 			}
 			sb.append("\n");
 		}

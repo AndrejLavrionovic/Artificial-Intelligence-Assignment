@@ -9,7 +9,11 @@ public class Sprite {
  	private int index = 0; //Initial starting index in array
  	private double lifeForce = 500; // For example
  	
- 	
+ 	/*
+        * String... - Zero or more String objects (or an array of them) may be
+        * passed as the argument(s) for that method.
+        * http://docs.oracle.com/javase/tutorial/java/javaOO/arguments.html#varargs
+        */
 	public Sprite(String name, String... images) throws Exception{
 		this.name = name;
 		this.index = 0; //Initialise the starting index to zero
@@ -38,7 +42,8 @@ public class Sprite {
 	}*/
 
 	
-	
+	// Methods that checks life level
+        // Returns true if life is grater then 0
 	public boolean isAlive(){
 		
 		return lifeForce > 0;
@@ -48,6 +53,12 @@ public class Sprite {
 	
 	// We could get the spider moving to the next position here, Thread.sleep(10) 
 	// Use Thread Executor service to manage the threading......
+        
+        /*
+        * Andrej:
+        * It seems like this method is returning the next frame ater
+        * current one. But the purpose is not clear yet.
+        */
 	public BufferedImage getNext(){ //Returns the next image frame
 		int idx = index;
 		if (index < frames.length - 1){
@@ -58,6 +69,7 @@ public class Sprite {
 		return frames[idx]; 
 	}
 	
+        // Method returns spider's name
 	public String getName(){
 		return this.name;
 	}
