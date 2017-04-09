@@ -6,12 +6,14 @@ public class Maze {
     // Property
     // Representation of maze in two dementional array;
     private char[][] maze;
+    private SpidersArmy spiders;
 
     // Constructor
     public Maze(int dimension){
         maze = new char[dimension][dimension];
         init();
         buildMaze();
+        this.spiders = new SpidersArmy();
 
         int featureNumber = (int)((dimension * dimension) * 0.01);
         addFeature('\u0031', '0', featureNumber); //1 is a sword, 0 is a hedge
@@ -39,15 +41,47 @@ public class Maze {
         }
     }
 
-    // This method replaces hedges with features
+    /* 
+    * This method replaces hedges with features
+    * It is randomly picks the cell and if this cell is hedge,
+    * then it is replaced with: 
+    * 1 - sword (49 of them)
+    * 2 - help (50 of them)
+    * 3 - bomb (51 of them)
+    * 4 - hydrogen bomb (52 of them)
+    *
+    *     Spiders:
+    * 6 - Black (54 of them)
+    * 7 - Blue (55 of them)
+    * 8 - Brown (56 of them)
+    * 9 - Green (57 of them)
+    * : - Grey (58 of them)
+    * ; - Orange (59 of them)
+    * < - Red (60 of them)
+    * = - Yellow (61 of them)
+    *
+    * The number of items is the decimal representation of character
+    * 
+    * Using this method we'll initialize our Spiders
+    */
+    int spiderNumber = 0;
     private void addFeature(char feature, char replace, int number){
         int counter = 0;
+        
         while (counter < feature){
             int row = (int) (maze.length * Math.random());
             int col = (int) (maze[0].length * Math.random());
 
+            
             if (maze[row][col] == replace){
                 maze[row][col] = feature;
+                
+                // If spider
+                if(feature > '\u0035' && feature < '\u003E'){
+                    spiderNumber++;
+                    Spider s = new Spider(spiderNumber, feature, row, col);
+                    spiders.addSpider(s);
+                }
                 counter++;
             }
         }
@@ -77,7 +111,7 @@ public class Maze {
         return this.maze[row][col];
     }
 
-    // set sell content with char c
+    // Sets the given cell with item that is representing by char c
     public void set(int row, int col, char c){
         this.maze[row][col] = c;
     }
@@ -98,5 +132,10 @@ public class Maze {
             sb.append("\n");
         }
         return sb.toString();
+    }
+
+    // returns list of spiders
+    public SpidersArmy getSpiders() {
+        return this.spiders;
     }
 }

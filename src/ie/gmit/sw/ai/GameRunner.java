@@ -14,6 +14,8 @@ public class GameRunner implements KeyListener{
     // current row and col indecates the Spartan Warrior position
     private int currentRow;
     private int currentCol;
+    
+    private SpidersControll controll;
 
 
     // Game runner constructor
@@ -22,9 +24,11 @@ public class GameRunner implements KeyListener{
         // initialization of Maza and GameView
         model = new Maze(MAZE_DIMENSION);
         view = new GameView(model);
+        this.controll = new SpidersControll(model);
 
         // test
         System.out.println(model.toString());
+        System.out.println("\n\n==> Spiders number is " + model.getSpiders().getSpidersnumber());
 
         /*
         * Array of features including sprites, weapons and other itmes:
@@ -67,6 +71,8 @@ public class GameRunner implements KeyListener{
         f.setLocation(100,100);
         f.pack();
         f.setVisible(true);
+        
+        this.controll.moveSpider();
     }
 
     // Picks randome coordinates and places the Spartan Warrior in the maze
@@ -129,11 +135,11 @@ public class GameRunner implements KeyListener{
     */
     private boolean isValidMove(int row, int col){
         if (row <= model.size() - 1 && col <= model.size() - 1 && model.get(row, col) == ' '){
-                model.set(currentRow, currentCol, '\u0020');
-                model.set(row, col, '5');
-                return true;
+            model.set(currentRow, currentCol, '\u0020');
+            model.set(row, col, '5');
+            return true;
         }else{
-                return false; //Can't move
+            return false; //Can't move
         }
     }
 

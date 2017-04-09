@@ -33,7 +33,7 @@ public class GameView extends JPanel implements ActionListener{
         timer.start();
     }
 
-    // Next two methods sets the view relativele to the Warrior positon
+    // Next two methods sets the view, that is relativele to the Warrior positon
     public void setCurrentRow(int row) {
         if (row < cellpadding){
             currentRow = cellpadding;
@@ -54,7 +54,7 @@ public class GameView extends JPanel implements ActionListener{
         }
     }
 
-    // Not sure how this method is work
+    // ? Not sure how this method is work
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D)g;
@@ -101,7 +101,7 @@ public class GameView extends JPanel implements ActionListener{
         zoomOut = !zoomOut;		
     }
 
-    // ? Not very sure what enemy state representing
+    // ? Not very sure what enemy state is
     public void actionPerformed(ActionEvent e) {	
         if (enemy_state < 0 || enemy_state == 5){
             enemy_state = 6;
