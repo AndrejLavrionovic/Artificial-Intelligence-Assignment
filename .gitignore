@@ -11,7 +11,17 @@
 hs_err_pid*
 /bin/
 
+#####################################################
+# All IDE's configuration filesg
 # NetBeans #
 build.xml
 /build/
 /nbproject/
+
+# IntellyJ #
+.idea
+project.iml
+
+# Eclipse #
+.classpath
+.project
