@@ -1,9 +1,7 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Class is encapsulates the Collection of Spider objects by delegating List methods
  */
-package ie.gmit.sw.ai;
+package ie.gmit.sw.ai.spiders;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +17,7 @@ public class SpidersArmy {
     
     // Delegated methods
     // return number of spiders in the list
-    public int getSpidersnumber(){
+    public int getSpidersNumber(){
         return spiders.size();
     }
     

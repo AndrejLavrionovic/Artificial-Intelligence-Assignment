@@ -1,5 +1,7 @@
 package ie.gmit.sw.ai;
 
+import ie.gmit.sw.ai.spiders.SpidersControll;
+
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
@@ -28,7 +30,7 @@ public class GameRunner implements KeyListener{
 
         // test
         System.out.println(model.toString());
-        System.out.println("\n\n==> Spiders number is " + model.getSpiders().getSpidersnumber());
+        System.out.println("\n\n==> Spiders number is " + model.getSpiders().getSpidersNumber());
 
         /*
         * Array of features including sprites, weapons and other itmes:

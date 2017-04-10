@@ -1,9 +1,10 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * SpidersControll.java implements Movable interface and make spiders moving.
  */
-package ie.gmit.sw.ai;
+package ie.gmit.sw.ai.spiders;
+
+import ie.gmit.sw.ai.Maze;
+import ie.gmit.sw.ai.Movable;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -12,7 +13,7 @@ import java.util.logging.Logger;
  *
  * @author Andrej Lavrinovic, Will Hogan
  */
-public class SpidersControll implements Movable{
+public class SpidersControll implements Movable {
     
     private SpidersArmy spiders;
     private Spider spider;

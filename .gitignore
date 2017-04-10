@@ -12,7 +12,8 @@ hs_err_pid*
 /bin/
 
 #####################################################
-# All IDE's configuration filesg
+# All IDE's configuration files
+
 # NetBeans #
 build.xml
 /build/

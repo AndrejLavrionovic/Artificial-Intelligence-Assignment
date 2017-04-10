@@ -1,6 +1,9 @@
 package ie.gmit.sw.ai;
 
 
+import ie.gmit.sw.ai.spiders.Spider;
+import ie.gmit.sw.ai.spiders.SpidersArmy;
+
 public class Maze {
     
     // Property
