@@ -1,12 +1,11 @@
-/*
- * Class is representing the spider enemy with some properties
- * and getters/setters method
- */
 package ie.gmit.sw.ai.spiders;
 
 /**
  *
- * @author Andrej Lavrinovic, Will Hogan
+ * @author Andrej Lavrinovic
+ *
+ * Class is representing the spider enemy with some properties
+ * and getters/setters method
  */
 public class Spider {
     
@@ -17,9 +16,9 @@ public class Spider {
     private int currentCol;
     
     // Constructor
-    public Spider(){}
+    public Spider(){} // default constructor
 
-    public Spider(int spiderNumber, char spiderType, int currentRow, int currentCol) {
+    public Spider(int spiderNumber, char spiderType, int currentRow, int currentCol) { // parametrised constructor
         this.spiderNumber = spiderNumber;
         this.spiderType = spiderType;
         this.currentRow = currentRow;

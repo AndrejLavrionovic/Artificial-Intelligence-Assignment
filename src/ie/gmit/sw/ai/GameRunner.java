@@ -17,14 +17,14 @@ public class GameRunner implements KeyListener{
     // current row and col indecates the Spartan Warrior position
     private int currentRow;
     private int currentCol;
-    
+    // Instance for the thread pool
     private ControllersPool controller;
 
 
     // Game runner constructor
     public GameRunner() throws Exception{
 
-        // initialization of Maza and GameView
+        // initialization of Maze, GameView, and Thread pool
         model = new Maze(MAZE_DIMENSION);
         view = new GameView(model);
         this.controller = new ControllersPool(model);
@@ -53,7 +53,7 @@ public class GameRunner implements KeyListener{
         Sprite[] sprites = getSprites();
         view.setSprites(sprites); // passes the array to the GameView
 
-        // Randomly places the spartan warior withing the maze
+        // Randomly places the spartan warrior withing the maze
         placePlayer();
 
         // This block sets JComponent properties
@@ -74,8 +74,9 @@ public class GameRunner implements KeyListener{
         f.setLocation(100,100);
         f.pack();
         f.setVisible(true);
-        
-        this.controller.doContolling();
+
+        // Moving the spiders
+        this.controller.doControlling();
     }
 
     // Picks randome coordinates and places the Spartan Warrior in the maze
@@ -173,6 +174,6 @@ public class GameRunner implements KeyListener{
 
     // Main method
     public static void main(String[] args) throws Exception{
-        new GameRunner();
+        new GameRunner(); // run the game
     }
 }

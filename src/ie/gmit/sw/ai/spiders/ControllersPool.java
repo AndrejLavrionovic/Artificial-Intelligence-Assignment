@@ -6,8 +6,12 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 /**
+ *
+ * @author Andrej Lavrinovic
+ *
  * Created by Andrej Lavrinovic and Will Hogan on 10/04/2017.
- * @author Andrej Lavrinovic, Will Hogan
+ * Thread pool
+ *
  */
 public class ControllersPool {
 
@@ -18,12 +22,15 @@ public class ControllersPool {
     // Service
     private ExecutorService executor = Executors.newCachedThreadPool();
 
+    // Constructor
+    // Initializes the maze and gets collection of spiders
     public ControllersPool(Maze maze){
         this.maze = maze;
         this.spiders = maze.getSpiders();
     }
 
-    public void doContolling(){
+    // method shares the tasks (spiders) among threads
+    public void doControlling(){
 
         for(int i = 0; i < this.spiders.getSpidersNumber(); i++){
             executor.submit(new SpiderController(this.spiders.getSpiderByIndex(i), this.maze));
