@@ -58,6 +58,4 @@ public class Spider {
     public void setCurrentCol(int currentCol) {
         this.currentCol = currentCol;
     }
-    
-    
 }

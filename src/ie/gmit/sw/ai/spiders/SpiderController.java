@@ -1,5 +1,6 @@
 /*
- * SpidersControll.java implements Movable interface and make spiders moving.
+ * SpiderController.java implements Movable interface and make spiders moving.
+ * This class also implement Runnable to have separate processor to control each spider.
  */
 package ie.gmit.sw.ai.spiders;
 
@@ -13,15 +14,19 @@ import java.util.logging.Logger;
  *
  * @author Andrej Lavrinovic, Will Hogan
  */
-public class SpidersControll implements Movable {
-    
-    private SpidersArmy spiders;
+public class SpiderController implements Movable, Runnable {
+
     private Spider spider;
     private Maze maze;
     
-    public SpidersControll(Maze maze){
+    public SpiderController(Spider spider, Maze maze){
         this.maze = maze;
-        this.spiders = this.maze.getSpiders();
+        this.spider = spider;
+    }
+
+    @Override
+    public void run(){
+        moveSpider();
     }
 
     @Override
@@ -34,15 +39,14 @@ public class SpidersControll implements Movable {
             maze.set(row, col, spider.getSpiderType());
         }
     }
-    
+
     public void moveSpider(){
-        
-        spider = this.spiders.getSpiderByIndex(100);
+
         while(true){
             
             try {
-                int derection = (int) (4 * Math.random() + 1);
-                switch(derection){
+                int direction = (int) (4 * Math.random() + 1);
+                switch(direction){
                     case 1:
                         move(spider.getCurrentRow() - 1, spider.getCurrentCol(), spider);
                         break;
@@ -56,10 +60,10 @@ public class SpidersControll implements Movable {
                         move(spider.getCurrentRow(), spider.getCurrentCol() - 1, spider);
                         break;
                 }
-                System.out.println("==> Spider coordinates == (" + spider.getCurrentRow() + " : " + spider.getCurrentCol() + ")");
+                // System.out.println("==> Spider coordinates == (" + spider.getCurrentRow() + " : " + spider.getCurrentCol() + ")");
                 Thread.sleep(1000);
             } catch (InterruptedException ex) {
-                Logger.getLogger(SpidersControll.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(SpiderController.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }

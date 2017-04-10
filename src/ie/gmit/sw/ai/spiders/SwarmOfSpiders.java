@@ -10,7 +10,7 @@ import java.util.List;
  *
  * @author Anrej Lavrinovic, Will Hogan
  */
-public class SpidersArmy {
+public class SwarmOfSpiders {
     
     // List of spiders
     private List<Spider> spiders = new ArrayList<Spider>();

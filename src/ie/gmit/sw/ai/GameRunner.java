@@ -1,6 +1,7 @@
 package ie.gmit.sw.ai;
 
-import ie.gmit.sw.ai.spiders.SpidersControll;
+import ie.gmit.sw.ai.spiders.ControllersPool;
+import ie.gmit.sw.ai.spiders.SpiderController;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -17,7 +18,7 @@ public class GameRunner implements KeyListener{
     private int currentRow;
     private int currentCol;
     
-    private SpidersControll controll;
+    private ControllersPool controller;
 
 
     // Game runner constructor
@@ -26,7 +27,7 @@ public class GameRunner implements KeyListener{
         // initialization of Maza and GameView
         model = new Maze(MAZE_DIMENSION);
         view = new GameView(model);
-        this.controll = new SpidersControll(model);
+        this.controller = new ControllersPool(model);
 
         // test
         System.out.println(model.toString());
@@ -56,7 +57,7 @@ public class GameRunner implements KeyListener{
         placePlayer();
 
         // This block sets JComponent properties
-        // Demention is set as 800 px in GameView class =>
+        // Dimension is set as 800 px in GameView class =>
         // public static final int DEFAULT_VIEW_SIZE = 800;
         Dimension d = new Dimension(GameView.DEFAULT_VIEW_SIZE, GameView.DEFAULT_VIEW_SIZE);
         view.setPreferredSize(d);
@@ -74,7 +75,7 @@ public class GameRunner implements KeyListener{
         f.pack();
         f.setVisible(true);
         
-        this.controll.moveSpider();
+        this.controller.doContolling();
     }
 
     // Picks randome coordinates and places the Spartan Warrior in the maze

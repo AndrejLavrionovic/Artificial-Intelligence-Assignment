@@ -2,21 +2,21 @@ package ie.gmit.sw.ai;
 
 
 import ie.gmit.sw.ai.spiders.Spider;
-import ie.gmit.sw.ai.spiders.SpidersArmy;
+import ie.gmit.sw.ai.spiders.SwarmOfSpiders;
 
 public class Maze {
     
     // Property
     // Representation of maze in two dementional array;
     private char[][] maze;
-    private SpidersArmy spiders;
+    private SwarmOfSpiders spiders;
 
     // Constructor
     public Maze(int dimension){
         maze = new char[dimension][dimension];
         init();
         buildMaze();
-        this.spiders = new SpidersArmy();
+        this.spiders = new SwarmOfSpiders();
 
         int featureNumber = (int)((dimension * dimension) * 0.01);
         addFeature('\u0031', '0', featureNumber); //1 is a sword, 0 is a hedge
@@ -138,7 +138,7 @@ public class Maze {
     }
 
     // returns list of spiders
-    public SpidersArmy getSpiders() {
+    public SwarmOfSpiders getSpiders() {
         return this.spiders;
     }
 }
