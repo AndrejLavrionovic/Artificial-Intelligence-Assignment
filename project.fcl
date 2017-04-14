@@ -5,7 +5,8 @@ FUNCTION_BLOCK engage
 	VAR_INPUT
 		weapon: REAL;
 		angerLevel: REAL;
-		life: REAL;
+		playerLife: REAL;
+		spriteLife: REAL;
 	END_VAR
 	
 	
@@ -16,9 +17,9 @@ FUNCTION_BLOCK engage
 	
 	// Includes [sword, bomb, Hydrogen-bomb]
 	FUZZIFY weapon
-		TERM sword := 
-		TERM bomb := 
-		TERM hydrogen-bomb := 
+		TERM sword := (0, 1) (40, 0);
+		TERM bomb := trian 30 50 70;
+		TERM hydrogen-bomb := (60, 0) (100, 1); 
 	END_FUZZIFY
 	
 	
@@ -30,12 +31,17 @@ FUNCTION_BLOCK engage
 	END_FUZZIFY
 	
 	
-	FUZZIFY life
-		TERM full : =
-		TERM nearlyFull : =
+	FUZZIFY playerLife
+		TERM high : =
 		TERM medium := trian
 		TERM low :=
-		TERM almostDead :=
+	END_FUZZIFY
+	
+	
+	FUZZIFY spriteLife
+		TERM high : =
+		TERM medium := trian
+		TERM low :=
 	END_FUZZIFY
 	
 	
@@ -46,7 +52,6 @@ FUNCTION_BLOCK engage
 		METHOD: COG;
 		DEFAULT := 0;
 	END_DEFUZZIFY
-	
 	
 	
 	RULEBLOCK No1
