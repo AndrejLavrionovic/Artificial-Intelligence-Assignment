@@ -8,11 +8,14 @@ import net.sourceforge.jFuzzyLogic.rule.Variable;
 public class FuzzyLogic {
 
 	
-	/*public double engage(){
+	public double engage(double weapon, double angerLevel, double playerLife, double spriteLife) {
+		
+		double lifeForce = 0;
+		
 		return lifeForce; // To return a double value...
-	}*/
+	}
 	
-    
+	
 	
 	public static void main(String[] args) {
 		

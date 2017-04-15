@@ -46,6 +46,8 @@ public class Sprite {
     public int getCurrentCol() {
         return currentCol;
     }
+    
+    
 
     // This is the Work in progress section of code that John was working on during the Project review.  
 

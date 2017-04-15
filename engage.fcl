@@ -1,7 +1,5 @@
 FUNCTION_BLOCK engage
 
-	// We can work out values for the below later....
-
 	VAR_INPUT
 		weapon: REAL;
 		playerLife: REAL;
@@ -19,6 +17,13 @@ FUNCTION_BLOCK engage
 		TERM sword := (0, 1) (40, 0);
 		TERM bomb := trian 30 50 70;
 		TERM hydrogenBomb := (60, 0) (100, 1); 
+	END_FUZZIFY
+	
+	
+	FUZZIFY angerLevel
+		TERM severe := (60, 0) (100, 1);
+		TERM semiIrate := trian 30 50 70;
+		TERM calm := (0, 1) (40, 0);
 	END_FUZZIFY
 	
 	
