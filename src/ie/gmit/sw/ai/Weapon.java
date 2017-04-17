@@ -8,6 +8,9 @@ public class Weapon {
 
 	private WeaponEnum weaponEnum;
 	private double weaponPower;
+	
+	public Weapon() {
+	}
 
 	public Weapon(WeaponEnum weaponEnum, double weaponPower) {
 		super();

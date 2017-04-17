@@ -10,6 +10,7 @@ public class Maze {
     // Representation of maze in two dementional array;
     private char[][] maze;
     private SwarmOfSpiders spiders;
+    // private SpartanWarrior spartanWarrior;
 
     // Constructor
     public Maze(int dimension){
