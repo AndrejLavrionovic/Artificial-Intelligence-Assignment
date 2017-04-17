@@ -1,5 +1,13 @@
 package ie.gmit.sw.ai.fuzzylogic;
 
+
+/**
+ * @author Will Hogan G00318460
+ */
+
+import ie.gmit.sw.ai.SpartanWarrior;
+import ie.gmit.sw.ai.Weapon;
+import ie.gmit.sw.ai.spiders.Spider;
 import net.sourceforge.jFuzzyLogic.FIS;
 import net.sourceforge.jFuzzyLogic.FunctionBlock;
 import net.sourceforge.jFuzzyLogic.plot.JFuzzyChart;
@@ -8,7 +16,10 @@ import net.sourceforge.jFuzzyLogic.rule.Variable;
 public class FuzzyLogic {
 
 	
-	public double engage(double weapon, double angerLevel, double playerLife, double spriteLife) {
+	
+	// Need to pass in a Spartan Warrior, Weapon and Spider instances into the engage method
+	// The Spider and Spartan will both have life instance variables, Anger is associated with the Spartan and the Spartan will also have (HAS-A) Weapon
+	public double engage(SpartanWarrior spartanWarrior, Spider spider, Weapon weapon) {
 		
 		double lifeForce = 0;
 		
@@ -16,7 +27,7 @@ public class FuzzyLogic {
 	}
 	
 	
-	
+	// The below code will need to be manipulated into the above engage method
 	public static void main(String[] args) {
 		
 		int spriteHealth = 1;
