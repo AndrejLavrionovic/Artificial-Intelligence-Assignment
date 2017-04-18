@@ -23,6 +23,7 @@ public class GameRunner implements KeyListener{
     private ControllersPool controller;
     private SpartanWarrior spartanWarrior;
     private Weapon weapon;
+    private int spiderCnt;
     
 
     // Game runner constructor
@@ -153,6 +154,7 @@ public class GameRunner implements KeyListener{
     	
     	Random rand = new Random();
 		int randValue = 0;
+		
     	char sword = '\u0031', questionMark = '\u0032', bomb = '\u0033', hydrogenBomb = '\u0034', blankSpace = '\u0020';
     	
     	/* Checks what happens when the Spartan Warrior walks over a Weapon
@@ -188,6 +190,11 @@ public class GameRunner implements KeyListener{
     		model.set(row, col, blankSpace);
     		spartanWarrior.add(weapon);
     		spartanWarrior.displayWeapons();
+    	}
+    	
+    	if (row <= model.size() - 1 && col <= model.size() -1 && model.get(row, col) >= '\u0036' && model.get(row, col) <= '\u003D') {
+    		spiderCnt += 1;
+    		System.out.println("Yellow Spiders Encountered : " + spiderCnt);
     	}
     	
     	// If the Current row and col are blank, then move the spartan warrior to that location

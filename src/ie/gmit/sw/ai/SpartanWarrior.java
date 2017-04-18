@@ -15,6 +15,7 @@ public class SpartanWarrior {
 	private List<Weapon> weaponList = new ArrayList<Weapon>();
 
 	
+	// Constructor
 	public SpartanWarrior(int currentRow, int currentCol) {
 		super();
 		getLifeForce();
@@ -22,16 +23,19 @@ public class SpartanWarrior {
 		this.currentCol = currentCol;
 	}
 
+	// Get the Spartans LifeForce 
 	public SpartanWarrior() {
 		getLifeForce();
 	}
 	
+	// Sets the damage taken in battle between Spartan Warrior and Spider
 	public void setDamageTaken(double damage){
-		lifeForce = lifeForce - damage;
+		lifeForce -= damage;
 		if (! (lifeForce > 0) ) {
 			System.out.println("Is Alive? " + isAlive());
 			System.out.println("Game Over, You Died!");
 			System.exit(0);
+			// This section will trigger game over events on the screen with game summary
 		}
 	}
 	
@@ -49,12 +53,13 @@ public class SpartanWarrior {
 		this.currentCol = currentCol;
 	}
 
-	// Add a Weapon to the back of the Queue
+	// Add a Weapon to the ArrayList
 	public void add(Weapon weapon) {
 		weaponList.add(weapon);
 	}
 	
-	// Remove a weapon from the front of the queue 
+	// Remove any other weapon from the ArrayList except for FIST, which must remain
+	// If remove is used when list is size 1, trigger else
 	public void useWeapon() {
 		if(weaponList.size() > 1){
 			weaponList.remove(1);
@@ -64,6 +69,7 @@ public class SpartanWarrior {
 		}
 	}
 	
+	// Return the Spartan warriors current weapon count
 	public int weaponCount(){
 		return weaponList.size();
 	}
