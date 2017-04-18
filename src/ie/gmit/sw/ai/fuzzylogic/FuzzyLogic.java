@@ -47,7 +47,6 @@ public class FuzzyLogic {
 	// The Spider and Spartan will both have life instance variables, Anger is associated with the Spartan and the Spartan will also have (HAS-A) Weapon
 	public double engage(SpartanWarrior spartanWarrior, double spiderLife, Weapon weapon) {
 		
-		
 		FIS fis = FIS.load("./engage.fcl", true);
 		FunctionBlock fb = fis.getFunctionBlock("engage");
 		// JFuzzyChart.get().chart(fb); // Print all Charts to Screen

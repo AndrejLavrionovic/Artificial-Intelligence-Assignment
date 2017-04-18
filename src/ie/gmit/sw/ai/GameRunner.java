@@ -1,22 +1,21 @@
 package ie.gmit.sw.ai;
 
+import ie.gmit.sw.ai.fuzzylogic.FuzzyLogic;
 import ie.gmit.sw.ai.spiders.ControllersPool;
-import ie.gmit.sw.ai.spiders.SpiderController;
-
 import java.awt.*;
 import java.awt.event.*;
 import java.util.Random;
-
 import javax.swing.*;
 
-public class GameRunner implements KeyListener{
+
+public class GameRunner implements KeyListener {
     
     // Properties
     private static final int MAZE_DIMENSION = 100; // 100 cells
     private static final int IMAGE_COUNT = 14; // items number (array length)
     private GameView view; // Instance for Game view
     private Maze model; // Instance for maze
-    // current row and col indecates the Spartan Warrior position
+    // current row and col indicates the Spartan Warrior position
     private int currentRow;
     private int currentCol;
     // Instance for the thread pool
@@ -24,6 +23,7 @@ public class GameRunner implements KeyListener{
     private SpartanWarrior spartanWarrior;
     private Weapon weapon;
     private int spiderCnt;
+    private FuzzyLogic fuzzyLogic;
     
 
     // Game runner constructor
@@ -35,6 +35,7 @@ public class GameRunner implements KeyListener{
     	
         // initialization of Maze, GameView, and Thread pool
         model = new Maze(MAZE_DIMENSION);
+        
         view = new GameView(model);
         this.controller = new ControllersPool(model);
 
@@ -130,7 +131,7 @@ public class GameRunner implements KeyListener{
                 if (isValidMove(currentRow - 1, currentCol)) currentRow--;
         }else if (e.getKeyCode() == KeyEvent.VK_DOWN && currentRow < MAZE_DIMENSION - 1) {
                 if (isValidMove(currentRow + 1, currentCol)) currentRow++;        	  	
-        }else if (e.getKeyCode() == KeyEvent.VK_Z){
+        }else if (e.getKeyCode() == KeyEvent.VK_Z) {
                 view.toggleZoom();
         }else{
                 return;
@@ -192,9 +193,19 @@ public class GameRunner implements KeyListener{
     		spartanWarrior.displayWeapons();
     	}
     	
-    	if (row <= model.size() - 1 && col <= model.size() -1 && model.get(row, col) >= '\u0036' && model.get(row, col) <= '\u003D') {
+    	if (row <= model.size() - 1 && col <= model.size() -1 && model.get(row, col) >= '\u003D') { // && model.get(row, col) <= '\u003D') {
     		spiderCnt += 1;
-    		System.out.println("Yellow Spiders Encountered : " + spiderCnt);
+    		System.out.println(" Spiders Encountered : " + spiderCnt);
+    		fuzzyLogic = new FuzzyLogic();
+    		spartanWarrior.useWeapon();
+    		fuzzyLogic.engage(spartanWarrior, 50.0, weapon);
+    		
+    		///////////////////////////////////////////////////////////////////////////////////////////////////
+    		// This only works for 100 miliseconds, then the yellow spider appears again in the next cell. 
+    		model.set(row, col, blankSpace);
+    		
+    		// Should try and remove the Spider from the ArrayList, but these is no instance of Spider in this class. How to fix?
+    		// model.getSpiders().removeSpider(spider);
     	}
     	
     	// If the Current row and col are blank, then move the spartan warrior to that location

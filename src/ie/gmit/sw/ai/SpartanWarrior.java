@@ -6,6 +6,8 @@ package ie.gmit.sw.ai;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.JOptionPane;
+
 
 public class SpartanWarrior {
 
@@ -34,7 +36,7 @@ public class SpartanWarrior {
 		if (! (lifeForce > 0) ) {
 			System.out.println("Is Alive? " + isAlive());
 			System.out.println("Game Over, You Died!");
-			System.exit(0);
+			JOptionPane.showMessageDialog(null, "GAME OVER");
 			// This section will trigger game over events on the screen with game summary
 		}
 	}
