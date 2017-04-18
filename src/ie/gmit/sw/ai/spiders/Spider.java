@@ -14,6 +14,11 @@ public class Spider {
     private char spiderType;
     private int currentRow;
     private int currentCol;
+    private double life = 500;
+    private double health;
+    private double anger;
+    private double power;
+    private double defence;
     
     // Constructor
     public Spider(){} // default constructor
@@ -56,5 +61,39 @@ public class Spider {
 
     public void setCurrentCol(int currentCol) {
         this.currentCol = currentCol;
+    }
+
+    public double getLife() {
+        return life;
+    }
+
+    public void setLife() {
+        if(this.health < 300) this.life = 1;
+        else if(this.health < 100) this.life = 0;
+        else this.life = 2;
+    }
+
+    public double getAnger() {
+        return anger;
+    }
+
+    public void setAnger(double anger) {
+        this.anger = anger;
+    }
+
+    public double getPower() {
+        return power;
+    }
+
+    public void setPower(double power) {
+        this.power = power;
+    }
+
+    public double getDefence() {
+        return defence;
+    }
+
+    public void setDefence(double defence) {
+        this.defence = defence;
     }
 }

@@ -2,6 +2,7 @@ package ie.gmit.sw.ai.spiders;
 
 import ie.gmit.sw.ai.Maze;
 import ie.gmit.sw.ai.Movable;
+import ie.gmit.sw.ai.nn.GameRunner;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -18,11 +19,13 @@ public class SpiderController implements Movable, Runnable {
     // Instances
     private Spider spider;
     private Maze maze;
+    private GameRunner gr;
 
     // Constructor that initializes instances
-    public SpiderController(Spider spider, Maze maze){
+    public SpiderController(Spider spider, Maze maze, GameRunner gr){
         this.maze = maze;
         this.spider = spider;
+        this.gr = gr;
     }
 
     // Run method that implemented from Runnable
@@ -40,6 +43,8 @@ public class SpiderController implements Movable, Runnable {
      */
     @Override
     public void move(int row, int col, Spider spider) {
+
+
         if(row <= this.maze.size() - 1 && col <= this.maze.size() -1
                 && this.maze.get(row, col) == ' '){ // if move is valid
             maze.set(spider.getCurrentRow(), spider.getCurrentCol(), '\u0020'); // replace current cell with space
@@ -48,6 +53,14 @@ public class SpiderController implements Movable, Runnable {
             spider.setCurrentRow(row);
             spider.setCurrentCol(col);
             maze.set(row, col, spider.getSpiderType()); // place object to the destination cell
+        }
+        else if(row <= this.maze.size() - 1 && col <= this.maze.size() -1
+                && this.maze.get(row, col) == '5'){
+            try {
+                gr.action(spider.getLife(), spider.getAnger(), spider.getPower(), spider.getDefence());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 
