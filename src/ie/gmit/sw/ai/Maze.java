@@ -74,7 +74,7 @@ public class Maze {
     int hedgeCounter = 0;
     int swordCounter = 0;
     
-    private void addFeature(char feature, char replace, int number){
+    private void addFeature(char feature, char replace, int number) {
         int counter = 0;
         
         while (counter < feature){
@@ -92,17 +92,9 @@ public class Maze {
                     spiders.addSpider(s);
                 }
                 
-                char hedge = '\u0032';
-                char sword = '\u0031';
-                
                 if(maze[row][col] == '\u0031') {
-                	System.out.println(maze);
                 	hedgeCounter++;
                 }
-           
-                /*if(feature == hedge)
-                	hedgeCounter++;*/
-                	  
                 counter++;
             }
         }

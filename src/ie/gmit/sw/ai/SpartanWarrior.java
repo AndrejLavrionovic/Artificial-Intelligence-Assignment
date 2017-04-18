@@ -65,6 +65,10 @@ public class SpartanWarrior {
 		}
 	}
 	
+	public int weaponCount(){
+		return weaponList.size();
+	}
+	
 	// Gets the Spartans LifeForce which is set to 100 at the start of the game
 	public double getLifeForce(){
 		return lifeForce;

@@ -20,11 +20,16 @@ public class GameRunner implements KeyListener{
     // Instance for the thread pool
     private ControllersPool controller;
     private SpartanWarrior spartanWarrior;
+    private Weapon weapon;
     
 
     // Game runner constructor
     public GameRunner() throws Exception{
-
+    	
+    	spartanWarrior = new SpartanWarrior(currentRow, currentCol);
+    	weapon = new Weapon(WeaponEnum.FIST, 5);
+    	spartanWarrior.add(weapon);
+    	
         // initialization of Maze, GameView, and Thread pool
         model = new Maze(MAZE_DIMENSION);
         view = new GameView(model);
@@ -85,8 +90,6 @@ public class GameRunner implements KeyListener{
         currentRow = (int) (MAZE_DIMENSION * Math.random());
         currentCol = (int) (MAZE_DIMENSION * Math.random());
         
-        spartanWarrior = new SpartanWarrior(currentRow, currentCol);
-        
         model.set(currentRow, currentCol, '5'); //A Spartan warrior is at index 5
         updateView(); // changes the view relatively to the Spartan Warrior		
     }
@@ -109,8 +112,8 @@ public class GameRunner implements KeyListener{
     public void keyPressed(KeyEvent e) {
     	
     	// Display Spartan Current Row and Col info
-        System.out.println("SPARTAN OBJECT: Current column : " + spartanWarrior.getCurrentColumn() + " Current row : " + spartanWarrior.getCurrentRow());
-        System.out.println("OTHER : Current column : " + currentCol + " Current row : " + currentRow);
+        // System.out.println("SPARTAN OBJECT: Current column : " + spartanWarrior.getCurrentColumn() + " Current row : " + spartanWarrior.getCurrentRow());
+        // System.out.println("OTHER : Current column : " + currentCol + " Current row : " + currentRow);
         
         
         
@@ -153,12 +156,34 @@ public class GameRunner implements KeyListener{
     */
     private boolean isValidMove(int row, int col) {
     	
+    	char sword = '\u0031', questionMark = '\u0032', bomb = '\u0033', hydrogenBomb = '\u0034', blankSpace = '\u0020';
+    	
     	// 1. Check if there is any item (except hedge)
-    	// 2. If there are items (Not Spiders), then add items to the Weapon Queue, this is still considered valid move
+    	// 2. If there are items (Not Spiders), then add items to the Weapon ArrayList, this is still considered valid move
     	// 3. Then use the below if statement as the else if part of above
+    	if (row <= model.size() - 1 && col <= model.size() -1 && model.get(row, col) == sword) { 
+    		weapon = new Weapon(WeaponEnum.SWORD, 15);
+    		System.out.println("Spartan Warrior Collected Sword");
+    		model.set(row, col, blankSpace); // Take Sword and replace that area with a blank space
+    		spartanWarrior.add(weapon);
+    		spartanWarrior.displayWeapons();
+    	}
+    	if (row <= model.size() - 1 && col <= model.size() -1 && model.get(row, col) == bomb) { 
+    		weapon = new Weapon(WeaponEnum.BOMB, 40);
+    		System.out.println("Spartan Warrior Collected Item Bomb");
+    		model.set(row, col, blankSpace);
+    		spartanWarrior.add(weapon);
+    		spartanWarrior.displayWeapons();
+    	}
+    	if (row <= model.size() - 1 && col <= model.size() -1 && model.get(row, col) == hydrogenBomb) { 
+    		weapon = new Weapon(WeaponEnum.HYDROGENBOMB, 75);
+    		System.out.println("Spartan Warrior Collected Item Hydrogen Bomb");
+    		model.set(row, col, blankSpace);
+    		spartanWarrior.add(weapon);
+    		spartanWarrior.displayWeapons();
+    	}
     	
     	// We must then make the weapon item disappear and the Warrior move to that empty space
-    	
         if (row <= model.size() - 1 && col <= model.size() - 1 && model.get(row, col) == ' ') {
             model.set(currentRow, currentCol, '\u0020');
             model.set(row, col, '5');
