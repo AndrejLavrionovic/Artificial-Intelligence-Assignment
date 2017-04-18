@@ -10,7 +10,6 @@ public class Maze {
     // Representation of maze in two dementional array;
     private char[][] maze;
     private SwarmOfSpiders spiders;
-    // private SpartanWarrior spartanWarrior;
 
     // Constructor
     public Maze(int dimension){
@@ -34,6 +33,8 @@ public class Maze {
         addFeature('\u003B', '0', featureNumber); //; is a Orange Spider, 0 is a hedge
         addFeature('\u003C', '0', featureNumber); //< is a Red Spider, 0 is a hedge
         addFeature('\u003D', '0', featureNumber); //= is a Yellow Spider, 0 is a hedge
+        
+      
     }
 
     // Builds the maze, initialy with hedges with no space, spiders and items.
@@ -44,6 +45,7 @@ public class Maze {
             }
         }
     }
+    
 
     /* 
     * This method replaces hedges with features
@@ -69,13 +71,16 @@ public class Maze {
     * Using this method we'll initialize our Spiders
     */
     int spiderNumber = 0;
+    int hedgeCounter = 0;
+    int swordCounter = 0;
+    
     private void addFeature(char feature, char replace, int number){
         int counter = 0;
         
         while (counter < feature){
             int row = (int) (maze.length * Math.random());
             int col = (int) (maze[0].length * Math.random());
-
+            
             
             if (maze[row][col] == replace){
                 maze[row][col] = feature;
@@ -86,10 +91,25 @@ public class Maze {
                     Spider s = new Spider(spiderNumber, feature, row, col);
                     spiders.addSpider(s);
                 }
+                
+                char hedge = '\u0032';
+                char sword = '\u0031';
+                
+                if(maze[row][col] == '\u0031') {
+                	System.out.println(maze);
+                	hedgeCounter++;
+                }
+           
+                /*if(feature == hedge)
+                	hedgeCounter++;*/
+                	  
                 counter++;
             }
         }
+        // System.out.println("Number of hedges with swords : " + hedgeCounter);
+        System.out.println("Sword count : " + hedgeCounter);
     }
+    
 
     // This method randomly populated the maze with empty spaces
     private void buildMaze(){ 

@@ -19,7 +19,8 @@ public class GameRunner implements KeyListener{
     private int currentCol;
     // Instance for the thread pool
     private ControllersPool controller;
-
+    private SpartanWarrior spartanWarrior;
+    
 
     // Game runner constructor
     public GameRunner() throws Exception{
@@ -83,6 +84,9 @@ public class GameRunner implements KeyListener{
     private void placePlayer(){   	
         currentRow = (int) (MAZE_DIMENSION * Math.random());
         currentCol = (int) (MAZE_DIMENSION * Math.random());
+        
+        spartanWarrior = new SpartanWarrior(currentRow, currentCol);
+        
         model.set(currentRow, currentCol, '5'); //A Spartan warrior is at index 5
         updateView(); // changes the view relatively to the Spartan Warrior		
     }
@@ -94,13 +98,23 @@ public class GameRunner implements KeyListener{
     private void updateView(){
         view.setCurrentRow(currentRow);
         view.setCurrentCol(currentCol);
+        
+        spartanWarrior.setCurrentRow(currentRow);
+        spartanWarrior.setCurrentColumn(currentCol);
     }
 
     /*
     * Moveing the Spartan Warrior
     */
     public void keyPressed(KeyEvent e) {
-
+    	
+    	// Display Spartan Current Row and Col info
+        System.out.println("SPARTAN OBJECT: Current column : " + spartanWarrior.getCurrentColumn() + " Current row : " + spartanWarrior.getCurrentRow());
+        System.out.println("OTHER : Current column : " + currentCol + " Current row : " + currentRow);
+        
+        
+        
+        
         // If right button is clicked and current position of
         // Spartan is less then 99 (in ohter words there is at least one
         // space to move to the right)
@@ -110,7 +124,7 @@ public class GameRunner implements KeyListener{
         // Same for the next buttons.
         // Button Z => changes the view
         if (e.getKeyCode() == KeyEvent.VK_RIGHT && currentCol < MAZE_DIMENSION - 1) {
-                if (isValidMove(currentRow, currentCol + 1)) currentCol++;   		
+                if (isValidMove(currentRow, currentCol + 1)) currentCol++;
         }else if (e.getKeyCode() == KeyEvent.VK_LEFT && currentCol > 0) {
                 if (isValidMove(currentRow, currentCol - 1)) currentCol--;	
         }else if (e.getKeyCode() == KeyEvent.VK_UP && currentRow > 0) {
@@ -122,7 +136,7 @@ public class GameRunner implements KeyListener{
         }else{
                 return;
         }
-
+        
         updateView(); // changes the view relatively to the Spartan Warrior
     }
 
@@ -137,11 +151,19 @@ public class GameRunner implements KeyListener{
     * I would change this method for validating availability for the cell only
     * and created another method move() for moving
     */
-    private boolean isValidMove(int row, int col){
-        if (row <= model.size() - 1 && col <= model.size() - 1 && model.get(row, col) == ' '){
+    private boolean isValidMove(int row, int col) {
+    	
+    	// 1. Check if there is any item (except hedge)
+    	// 2. If there are items (Not Spiders), then add items to the Weapon Queue, this is still considered valid move
+    	// 3. Then use the below if statement as the else if part of above
+    	
+    	// We must then make the weapon item disappear and the Warrior move to that empty space
+    	
+        if (row <= model.size() - 1 && col <= model.size() - 1 && model.get(row, col) == ' ') {
             model.set(currentRow, currentCol, '\u0020');
             model.set(row, col, '5');
             return true;
+            
         }else{
             return false; //Can't move
         }
@@ -169,6 +191,7 @@ public class GameRunner implements KeyListener{
         sprites[11] = new Sprite("Orange Spider", "resources/orange_spider_1.png", "resources/orange_spider_2.png");
         sprites[12] = new Sprite("Red Spider", "resources/red_spider_1.png", "resources/red_spider_2.png");
         sprites[13] = new Sprite("Yellow Spider", "resources/yellow_spider_1.png", "resources/yellow_spider_2.png");
+       
         return sprites;
     }
 

@@ -20,13 +20,6 @@ FUNCTION_BLOCK engage
 	END_FUZZIFY
 	
 	
-	FUZZIFY angerLevel
-		TERM severe := (60, 0) (100, 1);
-		TERM semiIrate := trian 30 50 70;
-		TERM calm := (0, 1) (40, 0);
-	END_FUZZIFY
-	
-	
 	FUZZIFY playerLife
 		TERM high := (60, 0) (80, 1) (100, 1);
 		TERM medium := trian 40 60 70;

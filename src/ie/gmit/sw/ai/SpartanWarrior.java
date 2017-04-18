@@ -1,21 +1,27 @@
 package ie.gmit.sw.ai;
 
-
 /**
  * @author Will Hogan G00318460
  */
-import java.util.LinkedList;
-import java.util.Queue;
+import java.util.ArrayList;
+import java.util.List;
+
 
 public class SpartanWarrior {
 
-	private double lifeForce = 100;
-	private int angerLevel; //  Need to figure out how to use this instance variable
-	// private int weaponAmount; // Not needed as we'll just use a Queue that can contain duplicates
+	private double lifeForce = 100; // For example, can be changed to 1000 if needed
 	private int currentRow;
-	private int currentColumn;
-	private Queue<Weapon> weaponList = new LinkedList<Weapon>();
+	private int currentCol;
+	private List<Weapon> weaponList = new ArrayList<Weapon>();
+
 	
+	public SpartanWarrior(int currentRow, int currentCol) {
+		super();
+		getLifeForce();
+		this.currentRow = currentRow;
+		this.currentCol = currentCol;
+	}
+
 	public SpartanWarrior() {
 		getLifeForce();
 	}
@@ -37,30 +43,21 @@ public class SpartanWarrior {
 		this.currentRow = currentRow;
 	}
 	public int getCurrentColumn() {
-		return currentColumn;
+		return currentCol;
 	}
-	public void setCurrentColumn(int currentColumn) {
-		this.currentColumn = currentColumn;
+	public void setCurrentColumn(int currentCol) {
+		this.currentCol = currentCol;
 	}
 
 	// Add a Weapon to the back of the Queue
-	public void add(Weapon weapon){
-		weaponList.offer(weapon);
+	public void add(Weapon weapon) {
+		weaponList.add(weapon);
 	}
 	
 	// Remove a weapon from the front of the queue 
 	public void useWeapon() {
-		weaponList.poll();
+		weaponList.remove(1);
 	}
-	
-	// Getters and Setters for the Spartan Warriors Anger Level
-	public int getAngerLevel() {
-		return angerLevel;
-	}
-
-	public void setAngerLevel(int angerLevel) {
-		this.angerLevel = angerLevel;
-	}	
 	
 	// Gets the Spartans LifeForce which is set to 100 at the start of the game
 	public double getLifeForce(){
@@ -93,15 +90,6 @@ public class SpartanWarrior {
 
 	// For Testing
 	public String toString() {
-		return "SpartanWarrior [lifeForce=" + lifeForce + ", angerLevel=" + angerLevel + ", weaponList=" + weaponList + "]";
+		return "SpartanWarrior [lifeForce=" + lifeForce + ", currentRow=" + currentRow + ", currentCol=" + currentCol + ", weaponList=" + weaponList + "]";
 	}
-	
-	/*	
-	public int getWeaponAmount() {
-		return weaponAmount;
-	}
-	
-	public void setWeaponAmount(int weaponAmount) {
-		this.weaponAmount = weaponAmount;
-	}*/
 }

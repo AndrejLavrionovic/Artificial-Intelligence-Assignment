@@ -2,6 +2,7 @@ package ie.gmit.sw.ai;
 
 public enum WeaponEnum {
 
+	FIST("FIST"),
 	SWORD("SWORD"), 
 	BOMB("BOMB"), 
 	HYDROGENBOMB("HYDROGENBOMB");
