@@ -98,8 +98,6 @@ public class Maze {
                 counter++;
             }
         }
-        // System.out.println("Number of hedges with swords : " + hedgeCounter);
-        System.out.println("Sword count : " + hedgeCounter);
     }
     
 

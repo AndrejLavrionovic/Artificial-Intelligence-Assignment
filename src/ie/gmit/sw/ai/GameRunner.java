@@ -5,6 +5,8 @@ import ie.gmit.sw.ai.spiders.SpiderController;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.util.Random;
+
 import javax.swing.*;
 
 public class GameRunner implements KeyListener{
@@ -111,13 +113,6 @@ public class GameRunner implements KeyListener{
     */
     public void keyPressed(KeyEvent e) {
     	
-    	// Display Spartan Current Row and Col info
-        // System.out.println("SPARTAN OBJECT: Current column : " + spartanWarrior.getCurrentColumn() + " Current row : " + spartanWarrior.getCurrentRow());
-        // System.out.println("OTHER : Current column : " + currentCol + " Current row : " + currentRow);
-        
-        
-        
-        
         // If right button is clicked and current position of
         // Spartan is less then 99 (in ohter words there is at least one
         // space to move to the right)
@@ -156,43 +151,57 @@ public class GameRunner implements KeyListener{
     */
     private boolean isValidMove(int row, int col) {
     	
+    	Random rand = new Random();
+		int randValue = 0;
     	char sword = '\u0031', questionMark = '\u0032', bomb = '\u0033', hydrogenBomb = '\u0034', blankSpace = '\u0020';
     	
-    	// 1. Check if there is any item (except hedge)
-    	// 2. If there are items (Not Spiders), then add items to the Weapon ArrayList, this is still considered valid move
-    	// 3. Then use the below if statement as the else if part of above
+    	/* Checks what happens when the Spartan Warrior walks over a Weapon
+    	 * 1. Create a Weapon object
+    	 * 2. Take the Weapon and replace that area with a blank space
+    	 * 3. Add the collected weapon to the Weapon ArrayList
+    	 * 4. Display Current Weapons */
     	if (row <= model.size() - 1 && col <= model.size() -1 && model.get(row, col) == sword) { 
-    		weapon = new Weapon(WeaponEnum.SWORD, 15);
+    		weapon = new Weapon(WeaponEnum.SWORD, 15); 
     		System.out.println("Spartan Warrior Collected Sword");
-    		model.set(row, col, blankSpace); // Take Sword and replace that area with a blank space
-    		spartanWarrior.add(weapon);
-    		spartanWarrior.displayWeapons();
+    		model.set(row, col, blankSpace); 
+    		spartanWarrior.add(weapon); 
+    		spartanWarrior.displayWeapons();  
     	}
     	if (row <= model.size() - 1 && col <= model.size() -1 && model.get(row, col) == bomb) { 
-    		weapon = new Weapon(WeaponEnum.BOMB, 40);
+    		weapon = new Weapon(WeaponEnum.BOMB, 40); 
     		System.out.println("Spartan Warrior Collected Item Bomb");
-    		model.set(row, col, blankSpace);
-    		spartanWarrior.add(weapon);
+    		model.set(row, col, blankSpace); 
+    		spartanWarrior.add(weapon); 
     		spartanWarrior.displayWeapons();
     	}
     	if (row <= model.size() - 1 && col <= model.size() -1 && model.get(row, col) == hydrogenBomb) { 
-    		weapon = new Weapon(WeaponEnum.HYDROGENBOMB, 75);
+    		weapon = new Weapon(WeaponEnum.HYDROGENBOMB, 75); 
     		System.out.println("Spartan Warrior Collected Item Hydrogen Bomb");
+    		model.set(row, col, blankSpace); 
+    		spartanWarrior.add(weapon); 
+    		spartanWarrior.displayWeapons();
+    	}
+    	if (row <= model.size() - 1 && col <= model.size() -1 && model.get(row, col) == questionMark) { 
+    		randValue = rand.nextInt(100 - 1 + 1) + 1;
+    		weapon = new Weapon(WeaponEnum.randomWeapon(), randValue);
+    		System.out.println("Spartan Warrior Collected Item Random Weapon with a Random Value");
     		model.set(row, col, blankSpace);
     		spartanWarrior.add(weapon);
     		spartanWarrior.displayWeapons();
     	}
     	
-    	// We must then make the weapon item disappear and the Warrior move to that empty space
+    	// If the Current row and col are blank, then move the spartan warrior to that location
         if (row <= model.size() - 1 && col <= model.size() - 1 && model.get(row, col) == ' ') {
             model.set(currentRow, currentCol, '\u0020');
             model.set(row, col, '5');
             return true;
-            
-        }else{
+        }
+        else {
             return false; //Can't move
         }
     }
+    
+    
 
     // Method populates the itime arrey
     // Index in the array is equalent to the char that represents the item.

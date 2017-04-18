@@ -56,7 +56,6 @@ public class SpartanWarrior {
 	
 	// Remove a weapon from the front of the queue 
 	public void useWeapon() {
-		
 		if(weaponList.size() > 1){
 			weaponList.remove(1);
 		}
