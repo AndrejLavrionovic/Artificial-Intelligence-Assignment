@@ -56,7 +56,13 @@ public class SpartanWarrior {
 	
 	// Remove a weapon from the front of the queue 
 	public void useWeapon() {
-		weaponList.remove(1);
+		
+		if(weaponList.size() > 1){
+			weaponList.remove(1);
+		}
+		else {
+			System.out.println("Nothing to Remove, only Fist remains");
+		}
 	}
 	
 	// Gets the Spartans LifeForce which is set to 100 at the start of the game

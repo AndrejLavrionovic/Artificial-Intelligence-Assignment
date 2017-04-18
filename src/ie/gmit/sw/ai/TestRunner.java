@@ -32,5 +32,21 @@ public class TestRunner {
 		System.out.println();
 		spartanWarrior.useWeapon();
 		spartanWarrior.displayWeapons();
+		
+		spartanWarrior.useWeapon();
+		spartanWarrior.useWeapon();
+		spartanWarrior.useWeapon();
+		spartanWarrior.useWeapon();
+		
+		spartanWarrior.displayWeapons();
+		
+		System.out.println();
+		Weapon weaponTest = new Weapon(WeaponEnum.BOMB, 40);
+		spartanWarrior.add(weaponTest);
+		
+		System.out.println("Weapon List.....");
+		spartanWarrior.displayWeapons();
+		
 	}
+	
 }
