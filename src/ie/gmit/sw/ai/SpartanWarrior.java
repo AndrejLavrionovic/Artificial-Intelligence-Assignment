@@ -11,12 +11,11 @@ import javax.swing.JOptionPane;
 
 public class SpartanWarrior {
 
-	private double lifeForce = 100; // For example, can be changed to 1000 if needed
+	private double lifeForce = 1000; // For example, can be changed to 1000 if needed
 	private int currentRow;
 	private int currentCol;
 	private List<Weapon> weaponList = new ArrayList<Weapon>();
 
-	
 	// Constructor
 	public SpartanWarrior(int currentRow, int currentCol) {
 		super();

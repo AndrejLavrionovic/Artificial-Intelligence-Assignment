@@ -1,3 +1,5 @@
+// Author Will Hogan G00318460
+
 FUNCTION_BLOCK engage
 
 	VAR_INPUT
@@ -14,6 +16,7 @@ FUNCTION_BLOCK engage
 	
 	// Includes [sword, bomb, Hydrogen-bomb]
 	FUZZIFY weapon
+		TERM fist := (0, 1) (20, 0);
 		TERM sword := (0, 1) (40, 0);
 		TERM bomb := trian 30 50 70;
 		TERM hydrogenBomb := (60, 0) (100, 1); 
@@ -47,8 +50,10 @@ FUNCTION_BLOCK engage
 		 AND : MIN;
 		 ACT : MIN;
 		 ACCU : MAX;
-		 RULE 1 : IF weapon IS hydrogenBomb THEN chanceToWin IS high;
-		 RULE 2 : IF weapon IS bomb OR playerLife IS high THEN chanceToWin IS normal;
+		 RULE 1 : IF weapon IS fist AND playerLife IS low THEN chanceToWin IS low;
+		 RULE 2 : IF weapon IS hydrogenBomb THEN chanceToWin IS high;
+		 RULE 3 : IF weapon IS bomb OR playerLife IS high THEN chanceToWin IS normal;
+		 RULE 4 : IF weapon IS sword THEN chanceToWin IS normal;
 	END_RULEBLOCK
 	
 END_FUNCTION_BLOCK

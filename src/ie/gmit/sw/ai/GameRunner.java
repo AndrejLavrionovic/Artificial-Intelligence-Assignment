@@ -1,6 +1,5 @@
 package ie.gmit.sw.ai;
 
-import ie.gmit.sw.ai.fuzzylogic.FuzzyLogic;
 import ie.gmit.sw.ai.spiders.ControllersPool;
 import java.awt.*;
 import java.awt.event.*;
@@ -15,15 +14,17 @@ public class GameRunner implements KeyListener {
     private static final int IMAGE_COUNT = 14; // items number (array length)
     private GameView view; // Instance for Game view
     private Maze model; // Instance for maze
+    
     // current row and col indicates the Spartan Warrior position
     private int currentRow;
     private int currentCol;
+    
     // Instance for the thread pool
     private ControllersPool controller;
+    
+    // In Game Instance Variables
     private SpartanWarrior spartanWarrior;
     private Weapon weapon;
-    private int spiderCnt;
-    private FuzzyLogic fuzzyLogic;
     
 
     // Game runner constructor
@@ -192,23 +193,6 @@ public class GameRunner implements KeyListener {
     		spartanWarrior.add(weapon);
     		spartanWarrior.displayWeapons();
     	}
-
-    	/*
-    	if (row <= model.size() - 1 && col <= model.size() -1 && model.get(row, col) >= '\u003D') { // && model.get(row, col) <= '\u003D') {
-    		spiderCnt += 1;
-    		System.out.println(" Spiders Encountered : " + spiderCnt);
-    		fuzzyLogic = new FuzzyLogic();
-    		spartanWarrior.useWeapon();
-    		fuzzyLogic.engage(spartanWarrior, 50.0, weapon);
-    		
-    		///////////////////////////////////////////////////////////////////////////////////////////////////
-    		// This only works for 100 miliseconds, then the yellow spider appears again in the next cell. 
-    		model.set(row, col, blankSpace);
-    		
-    		// Should try and remove the Spider from the ArrayList, but these is no instance of Spider in this class. How to fix?
-    		// model.getSpiders().removeSpider(spider);
-    	}
-    	*/
     	
     	// If the Current row and col are blank, then move the spartan warrior to that location
         if (row <= model.size() - 1 && col <= model.size() - 1 && model.get(row, col) == ' ') {
