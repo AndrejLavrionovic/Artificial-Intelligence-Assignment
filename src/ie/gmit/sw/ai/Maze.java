@@ -33,8 +33,7 @@ public class Maze {
         addFeature('\u003B', '0', featureNumber); //; is a Orange Spider, 0 is a hedge
         addFeature('\u003C', '0', featureNumber); //< is a Red Spider, 0 is a hedge
         addFeature('\u003D', '0', featureNumber); //= is a Yellow Spider, 0 is a hedge
-
-
+        // addFeature('\u003F', '0', featureNumber); //? is the Spartan Warriors Exit, 0 is a hedge
     }
 
     // Builds the maze, initialy with hedges with no space, spiders and items.
@@ -65,6 +64,9 @@ public class Maze {
     * ; - Orange (59 of them)
     * < - Red (60 of them)
     * = - Yellow (61 of them)
+    * 	  
+    *     Warrior Exit
+    * ? - 1 Spartan warrior exit     
     *
     * The number of items is the decimal representation of character
     * 
@@ -77,7 +79,6 @@ public class Maze {
         while (counter < feature){
             int row = (int) (maze.length * Math.random());
             int col = (int) (maze[0].length * Math.random());
-
             
             if (maze[row][col] == replace){
                 maze[row][col] = feature;
