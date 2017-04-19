@@ -113,7 +113,7 @@ public class GameView extends JPanel implements ActionListener{
 
     // Sets array of sprites which are not only the sprites
     // but also all other items such as weapons, help, hedges...
-    // list of items in the sprites arrey is in GameRunner.java
+    // list of items in the sprites arrey is in NNFacade.java
     public void setSprites(Sprite[] sprites){
         this.sprites = sprites;
     }

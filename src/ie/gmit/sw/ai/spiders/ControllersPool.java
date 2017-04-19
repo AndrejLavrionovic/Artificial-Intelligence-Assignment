@@ -1,7 +1,7 @@
 package ie.gmit.sw.ai.spiders;
 
 import ie.gmit.sw.ai.Maze;
-import ie.gmit.sw.ai.nn.GameRunner;
+import ie.gmit.sw.ai.nn.NNFacade;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -34,7 +34,7 @@ public class ControllersPool {
     public void doControlling(){
 
         for(int i = 0; i < this.spiders.getSpidersNumber(); i++){
-            executor.submit(new SpiderController(this.spiders.getSpiderByIndex(i), this.maze, new GameRunner()));
+            executor.submit(new SpiderController(this.spiders.getSpiderByIndex(i), this.maze, new NNFacade()));
         }
     }
 

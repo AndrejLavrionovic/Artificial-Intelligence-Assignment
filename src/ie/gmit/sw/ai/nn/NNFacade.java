@@ -2,7 +2,7 @@ package ie.gmit.sw.ai.nn;
 
 import ie.gmit.sw.ai.nn.activator.*;
 
-public class GameRunner{
+public class NNFacade implements NNPerformable {
 
 
     private double[][] data = { //Health, Anger, Strength, Defence
@@ -45,7 +45,7 @@ public class GameRunner{
         System.out.println("Run Away");
     }
 
-    public void action(double health, double anger, double strength, double defence) throws Exception{
+    public int action(double health, double anger, double strength, double defence) throws Exception{
 
         double[] params = {health, anger, strength, defence};
 
@@ -76,15 +76,7 @@ public class GameRunner{
             case 4:
                 runAway();
         }
-    }
 
-    public static void main(String[] args) throws Exception{
-        double health = Double.parseDouble(args[0]);
-        double anger = Double.parseDouble(args[1]);
-        double strength = Double.parseDouble(args[2]);
-        double defence = Double.parseDouble(args[3]);
-
-        new GameRunner().action(health, anger, strength, defence);
+        return output;
     }
-        
 }

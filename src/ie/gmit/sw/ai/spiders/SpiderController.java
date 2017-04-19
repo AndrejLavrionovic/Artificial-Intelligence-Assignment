@@ -2,7 +2,7 @@ package ie.gmit.sw.ai.spiders;
 
 import ie.gmit.sw.ai.Maze;
 import ie.gmit.sw.ai.Movable;
-import ie.gmit.sw.ai.nn.GameRunner;
+import ie.gmit.sw.ai.nn.NNFacade;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -19,10 +19,10 @@ public class SpiderController implements Movable, Runnable {
     // Instances
     private Spider spider;
     private Maze maze;
-    private GameRunner gr;
+    private NNFacade gr;
 
     // Constructor that initializes instances
-    public SpiderController(Spider spider, Maze maze, GameRunner gr){
+    public SpiderController(Spider spider, Maze maze, NNFacade gr){
         this.maze = maze;
         this.spider = spider;
         this.gr = gr;
@@ -44,20 +44,78 @@ public class SpiderController implements Movable, Runnable {
     @Override
     public void move(int row, int col, Spider spider) {
 
+        // cell where currently the spider is
+        int[] current = {spider.getCurrentRow(), spider.getCurrentCol()};
 
-        if(row <= this.maze.size() - 1 && col <= this.maze.size() -1
-                && this.maze.get(row, col) == ' '){ // if move is valid
-            maze.set(spider.getCurrentRow(), spider.getCurrentCol(), '\u0020'); // replace current cell with space
-
-            // set new coordinates for object
-            spider.setCurrentRow(row);
-            spider.setCurrentCol(col);
-            maze.set(row, col, spider.getSpiderType()); // place object to the destination cell
+        if(isValidMove(row, col)){ // if move is valid
+            doStep(current, row, col, spider);
         }
+        // if spider will meet the warrior
         else if(row <= this.maze.size() - 1 && col <= this.maze.size() -1
                 && this.maze.get(row, col) == '5'){
             try {
-                gr.action(spider.getLife(), spider.getAnger(), spider.getPower(), spider.getDefence());
+
+                // get result from NN
+                int nnOutput = gr.action(spider.getLife(), spider.getAnger(), spider.getPower(), spider.getDefence());
+                switch(nnOutput){
+                    case 1: // walk away - just step to the next valid sell
+                        if(isValidMove(spider.getCurrentRow(), (spider.getCurrentCol() + 1))){
+                            doStep(current, spider.getCurrentRow(), (spider.getCurrentCol() + 1), spider);
+                        }
+                        else if(isValidMove(spider.getCurrentRow(), (spider.getCurrentCol() - 1))){
+                            doStep(current, spider.getCurrentRow(), (spider.getCurrentCol() - 1), spider);
+                        }
+                        else if(isValidMove((spider.getCurrentRow() + 1), spider.getCurrentCol())){
+                            doStep(current, (spider.getCurrentRow() + 1), spider.getCurrentCol(), spider);
+                        }
+                        else if(isValidMove((spider.getCurrentRow() - 1), spider.getCurrentCol())){
+                            doStep(current, (spider.getCurrentRow() - 1), spider.getCurrentCol(), spider);
+                        }
+                        else{
+                            // attack the warrior
+                            System.out.println("Attack the warrior");
+                        }
+                        break;
+                    case 2: // attack
+                        // attack the warrior
+                        System.out.println("Attack the warrior");
+                        break;
+                    case 3: // Build hedge - step to the next valid sell and replace the current cell with the hedge
+                        if(isValidMove(spider.getCurrentRow(), (spider.getCurrentCol() + 1))){
+                            buildHedge(current, spider.getCurrentRow(), (spider.getCurrentCol() + 1), spider);
+                        }
+                        else if(isValidMove(spider.getCurrentRow(), (spider.getCurrentCol() - 1))){
+                            buildHedge(current, spider.getCurrentRow(), (spider.getCurrentCol() - 1), spider);
+                        }
+                        else if(isValidMove((spider.getCurrentRow() + 1), spider.getCurrentCol())){
+                            buildHedge(current, (spider.getCurrentRow() + 1), spider.getCurrentCol(), spider);
+                        }
+                        else if(isValidMove((spider.getCurrentRow() - 1), spider.getCurrentCol())){
+                            buildHedge(current, (spider.getCurrentRow() - 1), spider.getCurrentCol(), spider);
+                        }
+                        else{
+                            // attack the warrior
+                            System.out.println("Attack the warrior");
+                        }
+                        break;
+                    case 4: // Run away - just jump out for 3 cells
+                        if(isValidMove(spider.getCurrentRow(), (spider.getCurrentCol() + 3))){
+                            doStep(current, spider.getCurrentRow(), (spider.getCurrentCol() + 3), spider);
+                        }
+                        else if(isValidMove(spider.getCurrentRow(), (spider.getCurrentCol() - 3))){
+                            doStep(current, spider.getCurrentRow(), (spider.getCurrentCol() - 3), spider);
+                        }
+                        else if(isValidMove((spider.getCurrentRow() + 3), spider.getCurrentCol())){
+                            doStep(current, (spider.getCurrentRow() + 3), spider.getCurrentCol(), spider);
+                        }
+                        else if(isValidMove((spider.getCurrentRow() - 3), spider.getCurrentCol())){
+                            doStep(current, (spider.getCurrentRow() - 3), spider.getCurrentCol(), spider);
+                        }
+                        else{
+                            // attack the warrior
+                            System.out.println("Attack the warrior");
+                        }
+                }
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -101,5 +159,29 @@ public class SpiderController implements Movable, Runnable {
                 Logger.getLogger(SpiderController.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+    }
+
+    public boolean isValidMove(int row, int col){
+        if(row <= this.maze.size() - 1 && col <= this.maze.size() -1
+                && this.maze.get(row, col) == ' ') return true;
+        return false;
+    }
+
+    public void doStep(int[] current, int destinationRow, int destinationCol, Spider spider){
+        this.maze.set(current[0], current[1], '\u0020'); // replace current cell with space
+
+        // set new coordinates for object
+        spider.setCurrentRow(destinationRow);
+        spider.setCurrentCol(destinationCol);
+        this.maze.set(destinationRow, destinationCol, spider.getSpiderType()); // place object to the destination cell
+    }
+
+    public void buildHedge(int[] current, int destinationRow, int destinationCol, Spider spider){
+        this.maze.set(current[0], current[1], '0'); // replace current cell with space
+
+        // set new coordinates for object
+        spider.setCurrentRow(destinationRow);
+        spider.setCurrentCol(destinationCol);
+        this.maze.set(destinationRow, destinationCol, spider.getSpiderType()); // place object to the destination cell
     }
 }
