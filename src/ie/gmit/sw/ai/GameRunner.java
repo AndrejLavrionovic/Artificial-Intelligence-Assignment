@@ -1,31 +1,41 @@
 package ie.gmit.sw.ai;
 
+import ie.gmit.sw.ai.fuzzylogic.FuzzyLogic;
 import ie.gmit.sw.ai.spiders.ControllersPool;
-import ie.gmit.sw.ai.spiders.SpiderController;
-
 import java.awt.*;
 import java.awt.event.*;
+import java.util.Random;
 import javax.swing.*;
 
-public class GameRunner implements KeyListener{
+
+public class GameRunner implements KeyListener {
     
     // Properties
     private static final int MAZE_DIMENSION = 100; // 100 cells
     private static final int IMAGE_COUNT = 14; // items number (array length)
     private GameView view; // Instance for Game view
     private Maze model; // Instance for maze
-    // current row and col indecates the Spartan Warrior position
+    // current row and col indicates the Spartan Warrior position
     private int currentRow;
     private int currentCol;
     // Instance for the thread pool
     private ControllersPool controller;
-
+    private SpartanWarrior spartanWarrior;
+    private Weapon weapon;
+    private int spiderCnt;
+    private FuzzyLogic fuzzyLogic;
+    
 
     // Game runner constructor
     public GameRunner() throws Exception{
-
+    	
+    	spartanWarrior = new SpartanWarrior(currentRow, currentCol);
+    	weapon = new Weapon(WeaponEnum.FIST, 5);
+    	spartanWarrior.add(weapon);
+    	
         // initialization of Maze, GameView, and Thread pool
         model = new Maze(MAZE_DIMENSION);
+        
         view = new GameView(model);
         this.controller = new ControllersPool(model);
 
@@ -83,6 +93,7 @@ public class GameRunner implements KeyListener{
     private void placePlayer(){   	
         currentRow = (int) (MAZE_DIMENSION * Math.random());
         currentCol = (int) (MAZE_DIMENSION * Math.random());
+        
         model.set(currentRow, currentCol, '5'); //A Spartan warrior is at index 5
         updateView(); // changes the view relatively to the Spartan Warrior		
     }
@@ -94,13 +105,16 @@ public class GameRunner implements KeyListener{
     private void updateView(){
         view.setCurrentRow(currentRow);
         view.setCurrentCol(currentCol);
+        
+        spartanWarrior.setCurrentRow(currentRow);
+        spartanWarrior.setCurrentColumn(currentCol);
     }
 
     /*
     * Moveing the Spartan Warrior
     */
     public void keyPressed(KeyEvent e) {
-
+    	
         // If right button is clicked and current position of
         // Spartan is less then 99 (in ohter words there is at least one
         // space to move to the right)
@@ -110,19 +124,19 @@ public class GameRunner implements KeyListener{
         // Same for the next buttons.
         // Button Z => changes the view
         if (e.getKeyCode() == KeyEvent.VK_RIGHT && currentCol < MAZE_DIMENSION - 1) {
-                if (isValidMove(currentRow, currentCol + 1)) currentCol++;   		
+                if (isValidMove(currentRow, currentCol + 1)) currentCol++;
         }else if (e.getKeyCode() == KeyEvent.VK_LEFT && currentCol > 0) {
                 if (isValidMove(currentRow, currentCol - 1)) currentCol--;	
         }else if (e.getKeyCode() == KeyEvent.VK_UP && currentRow > 0) {
                 if (isValidMove(currentRow - 1, currentCol)) currentRow--;
         }else if (e.getKeyCode() == KeyEvent.VK_DOWN && currentRow < MAZE_DIMENSION - 1) {
                 if (isValidMove(currentRow + 1, currentCol)) currentRow++;        	  	
-        }else if (e.getKeyCode() == KeyEvent.VK_Z){
+        }else if (e.getKeyCode() == KeyEvent.VK_Z) {
                 view.toggleZoom();
         }else{
                 return;
         }
-
+        
         updateView(); // changes the view relatively to the Spartan Warrior
     }
 
@@ -137,15 +151,75 @@ public class GameRunner implements KeyListener{
     * I would change this method for validating availability for the cell only
     * and created another method move() for moving
     */
-    private boolean isValidMove(int row, int col){
-        if (row <= model.size() - 1 && col <= model.size() - 1 && model.get(row, col) == ' '){
+    private boolean isValidMove(int row, int col) {
+    	
+    	Random rand = new Random();
+		int randValue = 0;
+		
+    	char sword = '\u0031', questionMark = '\u0032', bomb = '\u0033', hydrogenBomb = '\u0034', blankSpace = '\u0020';
+    	
+    	/* Checks what happens when the Spartan Warrior walks over a Weapon
+    	 * 1. Create a Weapon object
+    	 * 2. Take the Weapon and replace that area with a blank space
+    	 * 3. Add the collected weapon to the Weapon ArrayList
+    	 * 4. Display Current Weapons */
+    	if (row <= model.size() - 1 && col <= model.size() -1 && model.get(row, col) == sword) { 
+    		weapon = new Weapon(WeaponEnum.SWORD, 15); 
+    		System.out.println("Spartan Warrior Collected Sword");
+    		model.set(row, col, blankSpace); 
+    		spartanWarrior.add(weapon); 
+    		spartanWarrior.displayWeapons();  
+    	}
+    	if (row <= model.size() - 1 && col <= model.size() -1 && model.get(row, col) == bomb) { 
+    		weapon = new Weapon(WeaponEnum.BOMB, 40); 
+    		System.out.println("Spartan Warrior Collected Item Bomb");
+    		model.set(row, col, blankSpace); 
+    		spartanWarrior.add(weapon); 
+    		spartanWarrior.displayWeapons();
+    	}
+    	if (row <= model.size() - 1 && col <= model.size() -1 && model.get(row, col) == hydrogenBomb) { 
+    		weapon = new Weapon(WeaponEnum.HYDROGENBOMB, 75); 
+    		System.out.println("Spartan Warrior Collected Item Hydrogen Bomb");
+    		model.set(row, col, blankSpace); 
+    		spartanWarrior.add(weapon); 
+    		spartanWarrior.displayWeapons();
+    	}
+    	if (row <= model.size() - 1 && col <= model.size() -1 && model.get(row, col) == questionMark) { 
+    		randValue = rand.nextInt(100 - 1 + 1) + 1;
+    		weapon = new Weapon(WeaponEnum.randomWeapon(), randValue);
+    		System.out.println("Spartan Warrior Collected Item Random Weapon with a Random Value");
+    		model.set(row, col, blankSpace);
+    		spartanWarrior.add(weapon);
+    		spartanWarrior.displayWeapons();
+    	}
+    	
+    	if (row <= model.size() - 1 && col <= model.size() -1 && model.get(row, col) >= '\u003D') { // && model.get(row, col) <= '\u003D') {
+    		spiderCnt += 1;
+    		System.out.println(" Spiders Encountered : " + spiderCnt);
+    		fuzzyLogic = new FuzzyLogic();
+    		spartanWarrior.useWeapon();
+    		fuzzyLogic.engage(spartanWarrior, 50.0, weapon);
+    		
+    		///////////////////////////////////////////////////////////////////////////////////////////////////
+    		// This only works for 100 miliseconds, then the yellow spider appears again in the next cell. 
+    		model.set(row, col, blankSpace);
+    		
+    		// Should try and remove the Spider from the ArrayList, but these is no instance of Spider in this class. How to fix?
+    		// model.getSpiders().removeSpider(spider);
+    	}
+    	
+    	// If the Current row and col are blank, then move the spartan warrior to that location
+        if (row <= model.size() - 1 && col <= model.size() - 1 && model.get(row, col) == ' ') {
             model.set(currentRow, currentCol, '\u0020');
             model.set(row, col, '5');
             return true;
-        }else{
+        }
+        else {
             return false; //Can't move
         }
     }
+    
+    
 
     // Method populates the itime arrey
     // Index in the array is equalent to the char that represents the item.
@@ -169,6 +243,7 @@ public class GameRunner implements KeyListener{
         sprites[11] = new Sprite("Orange Spider", "resources/orange_spider_1.png", "resources/orange_spider_2.png");
         sprites[12] = new Sprite("Red Spider", "resources/red_spider_1.png", "resources/red_spider_2.png");
         sprites[13] = new Sprite("Yellow Spider", "resources/yellow_spider_1.png", "resources/yellow_spider_2.png");
+       
         return sprites;
     }
 

@@ -33,6 +33,8 @@ public class Maze {
         addFeature('\u003B', '0', featureNumber); //; is a Orange Spider, 0 is a hedge
         addFeature('\u003C', '0', featureNumber); //< is a Red Spider, 0 is a hedge
         addFeature('\u003D', '0', featureNumber); //= is a Yellow Spider, 0 is a hedge
+
+
     }
 
     // Builds the maze, initialy with hedges with no space, spiders and items.
@@ -43,6 +45,7 @@ public class Maze {
             }
         }
     }
+
 
     /* 
     * This method replaces hedges with features
@@ -83,64 +86,6 @@ public class Maze {
                 if(feature > '\u0035' && feature < '\u003E'){
                     spiderNumber++;
                     Spider s = new Spider(spiderNumber, feature, row, col);
-
-                    // setting for spider's characteristics
-                    switch (feature){
-                        case '\u0036':
-                            s.setLife();
-                            s.setAnger(2);
-                            s.setPower(0);
-                            s.setDefence(2);
-                            break;
-                        case '\u0037':
-                            s.setLife();
-                            s.setAnger(1);
-                            s.setPower(0);
-                            s.setDefence(2);
-                            break;
-                        case '\u0038':
-                            s.setLife();
-                            s.setAnger(1);
-                            s.setPower(1);
-                            s.setDefence(1);
-                            break;
-                        case '\u0039':
-                            s.setLife();
-                            s.setAnger(0);
-                            s.setPower(0);
-                            s.setDefence(2);
-                            break;
-                        case '\u003A':
-                            s.setLife();
-                            s.setAnger(0);
-                            s.setPower(2);
-                            s.setDefence(0);
-                            break;
-                        case '\u003B':
-                            s.setLife();
-                            s.setAnger(2);
-                            s.setPower(1);
-                            s.setDefence(0);
-                            break;
-                        case '\u003C':
-                            s.setLife();
-                            s.setAnger(2);
-                            s.setPower(2);
-                            s.setDefence(0);
-                            break;
-                        case '\u003D':
-                            s.setLife();
-                            s.setAnger(0);
-                            s.setPower(1);
-                            s.setDefence(1);
-                            break;
-                        default:
-                            s.setLife();
-                            s.setAnger(2);
-                            s.setPower(2);
-                            s.setDefence(0);
-                            break;
-                    }
                     spiders.addSpider(s);
                 }
                 counter++;
