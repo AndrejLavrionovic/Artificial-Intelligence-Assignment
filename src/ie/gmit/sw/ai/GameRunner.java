@@ -3,7 +3,10 @@ package ie.gmit.sw.ai;
 import ie.gmit.sw.ai.spiders.ControllersPool;
 import java.awt.*;
 import java.awt.event.*;
+import java.awt.image.BufferedImage;
 import java.util.Random;
+
+import javax.imageio.ImageIO;
 import javax.swing.*;
 
 
@@ -229,6 +232,7 @@ public class GameRunner implements KeyListener {
         sprites[11] = new Sprite("Orange Spider", "resources/orange_spider_1.png", "resources/orange_spider_2.png");
         sprites[12] = new Sprite("Red Spider", "resources/red_spider_1.png", "resources/red_spider_2.png");
         sprites[13] = new Sprite("Yellow Spider", "resources/yellow_spider_1.png", "resources/yellow_spider_2.png");
+        // sprites[14] = new Sprite("Exit", "resources/spartanExit.png");
        
         return sprites;
     }

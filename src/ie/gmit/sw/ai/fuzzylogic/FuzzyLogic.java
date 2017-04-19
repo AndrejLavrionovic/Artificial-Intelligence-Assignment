@@ -12,7 +12,7 @@ import net.sourceforge.jFuzzyLogic.FIS;
 import net.sourceforge.jFuzzyLogic.FunctionBlock;
 
 
-public class FuzzyLogic {
+public class FuzzyLogic implements engageable {
 	
 	// Need to pass in a Spartan Warrior, Weapon and Spider instances into the engage method
 	// The Spider and Spartan will both have life instance variables, Anger is associated with the Spartan and the Spartan will also have (HAS-A) Weapon
