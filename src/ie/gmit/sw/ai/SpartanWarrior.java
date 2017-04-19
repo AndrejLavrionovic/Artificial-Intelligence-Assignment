@@ -62,13 +62,15 @@ public class SpartanWarrior {
 	
 	// Remove any other weapon from the ArrayList except for FIST, which must remain
 	// If remove is used when list is size 1, trigger else
-	public void useWeapon() {
+	public Weapon useWeapon() {
+		Weapon weapon = weaponList.get(weaponList.size() - 1);
 		if(weaponList.size() > 1){
-			weaponList.remove(1);
+			weaponList.remove(weaponList.size() - 1);
 		}
 		else {
 			System.out.println("Nothing to Remove, only Fist remains");
 		}
+		return  weapon;
 	}
 	
 	// Return the Spartan warriors current weapon count

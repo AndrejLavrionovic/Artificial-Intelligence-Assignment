@@ -9,11 +9,6 @@ public class Sprite {
     private String name; //The name of this sprite
     private BufferedImage[] frames; //The set of image frames to animate
     private int index = 0; //Initial starting index in array
-    private double lifeForce = 500; // For example
-    
-    // sprite position
-    private int currentRow;
-    private int currentCol;
 
     /*
     * String... - Zero or more String objects (or an array of them) may be
@@ -30,47 +25,13 @@ public class Sprite {
         }
     }
 
-    // Getters and Setters for current position
-    public void setCurrentRow(int currentRow) {
-        this.currentRow = currentRow;
-    }
-
-    public void setCurrentCol(int currentCol) {
-        this.currentCol = currentCol;
-    }
-
-    public int getCurrentRow() {
-        return currentRow;
-    }
-
-    public int getCurrentCol() {
-        return currentCol;
-    }
-
-
-
-    // This is the Work in progress section of code that John was working on during the Project review.  
-
-    /*public double engage(double weapon, double anger){
-        NeuralNetwork nn = NeuralNetworkFactory().getInstance().getNetwork("engage");
-        double[] inputs = {weapon, anger};
-        double result = nn.process(inputs);
-        lifeForce += result;
-
-        FIS fis = FuzzyLogicFactory().getInstance().getFIS("engage");
-        double result1 = fis.evaluate(weapon, anger);
-        lifeForce += result;
-
-        return lifeForce;
-    }*/
-
-
+    /*
     // Methods that checks life level
     // Returns true if life is grater then 0
     public boolean isAlive(){
         return lifeForce > 0;
     }
-
+    */
 
 
     // We could get the spider moving to the next position here, Thread.sleep(10) 
@@ -89,10 +50,5 @@ public class Sprite {
                 index = 0; //Circle back to the start of the array
         }
         return frames[idx]; 
-    }
-
-    // Method returns spider's name
-    public String getName(){
-        return this.name;
     }
 }

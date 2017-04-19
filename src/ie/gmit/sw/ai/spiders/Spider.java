@@ -14,8 +14,8 @@ public class Spider {
     private char spiderType;
     private int currentRow;
     private int currentCol;
-    private double life = 500;
-    private double health;
+    private int life;
+    private double health = 500;
     private double anger;
     private double power;
     private double defence;
@@ -95,5 +95,13 @@ public class Spider {
 
     public void setDefence(double defence) {
         this.defence = defence;
+    }
+
+    public double getHealth() {
+        return health;
+    }
+
+    public void setHealth(double health) {
+        this.health = health;
     }
 }

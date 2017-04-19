@@ -2,6 +2,9 @@ package ie.gmit.sw.ai.spiders;
 
 import ie.gmit.sw.ai.Maze;
 import ie.gmit.sw.ai.Movable;
+import ie.gmit.sw.ai.SpartanWarrior;
+import ie.gmit.sw.ai.Weapon;
+import ie.gmit.sw.ai.fuzzylogic.FuzzyLogic;
 import ie.gmit.sw.ai.nn.NNFacade;
 
 import java.util.logging.Level;
@@ -20,12 +23,16 @@ public class SpiderController implements Movable, Runnable {
     private Spider spider;
     private Maze maze;
     private NNFacade gr;
+    private FuzzyLogic fl;
+    private SpartanWarrior warrior;
 
     // Constructor that initializes instances
-    public SpiderController(Spider spider, Maze maze, NNFacade gr){
+    public SpiderController(Spider spider, Maze maze, NNFacade gr, FuzzyLogic fl, SpartanWarrior warrior){
         this.maze = maze;
         this.spider = spider;
         this.gr = gr;
+        this.fl = fl;
+        this.warrior = warrior;
     }
 
     // Run method that implemented from Runnable
@@ -74,11 +81,13 @@ public class SpiderController implements Movable, Runnable {
                         else{
                             // attack the warrior
                             System.out.println("Attack the warrior");
+                            attack(spider);
                         }
                         break;
                     case 2: // attack
                         // attack the warrior
                         System.out.println("Attack the warrior");
+                        attack(spider);
                         break;
                     case 3: // Build hedge - step to the next valid sell and replace the current cell with the hedge
                         if(isValidMove(spider.getCurrentRow(), (spider.getCurrentCol() + 1))){
@@ -96,6 +105,7 @@ public class SpiderController implements Movable, Runnable {
                         else{
                             // attack the warrior
                             System.out.println("Attack the warrior");
+                            attack(spider);
                         }
                         break;
                     case 4: // Run away - just jump out for 3 cells
@@ -114,6 +124,7 @@ public class SpiderController implements Movable, Runnable {
                         else{
                             // attack the warrior
                             System.out.println("Attack the warrior");
+                            attack(spider);
                         }
                 }
             } catch (Exception e) {
@@ -183,5 +194,19 @@ public class SpiderController implements Movable, Runnable {
         spider.setCurrentRow(destinationRow);
         spider.setCurrentCol(destinationCol);
         this.maze.set(destinationRow, destinationCol, spider.getSpiderType()); // place object to the destination cell
+    }
+
+    public void attack(Spider spider){
+
+        // using fuzzylogic estimating the warrior life after battle
+        this.warrior.setDamageTaken(this.fl.engage(this.warrior, spider, this.warrior.useWeapon()));
+        System.out.println("Spartan LifeForce After battle is: " + this.warrior.getLifeForce());
+
+        spider.setHealth(spider.getHealth() - 250); // assuming that spider lost its health
+        spider.setLife(); // setting the life (0 - 2)
+        if(spider.getHealth() < 0){ // if spider is killed, then remove it from the list
+            this.maze.set(spider.getCurrentRow(), spider.getCurrentCol(), '0');
+            this.maze.getSpiders().removeSpider(spider);
+        }
     }
 }

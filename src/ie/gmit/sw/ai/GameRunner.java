@@ -37,7 +37,7 @@ public class GameRunner implements KeyListener {
         model = new Maze(MAZE_DIMENSION);
         
         view = new GameView(model);
-        this.controller = new ControllersPool(model);
+        this.controller = new ControllersPool(model, spartanWarrior);
 
         // test
         System.out.println(model.toString());
@@ -192,7 +192,8 @@ public class GameRunner implements KeyListener {
     		spartanWarrior.add(weapon);
     		spartanWarrior.displayWeapons();
     	}
-    	
+
+    	/*
     	if (row <= model.size() - 1 && col <= model.size() -1 && model.get(row, col) >= '\u003D') { // && model.get(row, col) <= '\u003D') {
     		spiderCnt += 1;
     		System.out.println(" Spiders Encountered : " + spiderCnt);
@@ -207,6 +208,7 @@ public class GameRunner implements KeyListener {
     		// Should try and remove the Spider from the ArrayList, but these is no instance of Spider in this class. How to fix?
     		// model.getSpiders().removeSpider(spider);
     	}
+    	*/
     	
     	// If the Current row and col are blank, then move the spartan warrior to that location
         if (row <= model.size() - 1 && col <= model.size() - 1 && model.get(row, col) == ' ') {
