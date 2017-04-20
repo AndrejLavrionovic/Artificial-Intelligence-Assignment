@@ -9,7 +9,7 @@ import java.util.List;
 import javax.swing.JOptionPane;
 
 
-public class SpartanWarrior {
+public class SpartanWarrior extends Node {
 
 	private double lifeForce = 1000; // For example, can be changed to 1000 if needed
 	private int currentRow;
@@ -18,7 +18,7 @@ public class SpartanWarrior {
 
 	// Constructor
 	public SpartanWarrior(int currentRow, int currentCol) {
-		super();
+		super(currentCol, currentCol, currentCol);
 		getLifeForce();
 		this.currentRow = currentRow;
 		this.currentCol = currentCol;

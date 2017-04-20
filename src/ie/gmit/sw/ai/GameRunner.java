@@ -98,7 +98,7 @@ public class GameRunner implements KeyListener {
         currentRow = (int) (MAZE_DIMENSION * Math.random());
         currentCol = (int) (MAZE_DIMENSION * Math.random());
         
-        model.set(currentRow, currentCol, '5'); //A Spartan warrior is at index 5
+        model.set(currentRow, currentCol, new Node(currentRow, currentCol, 5)); // '5'); //A Spartan warrior is at index 5
         updateView(); // changes the view relatively to the Spartan Warrior		
     }
 
@@ -167,40 +167,40 @@ public class GameRunner implements KeyListener {
     	 * 2. Take the Weapon and replace that area with a blank space
     	 * 3. Add the collected weapon to the Weapon ArrayList
     	 * 4. Display Current Weapons */
-    	if (row <= model.size() - 1 && col <= model.size() -1 && model.get(row, col) == sword) { 
+    	if (row <= model.size() - 1 && col <= model.size() -1 && model.get(row, col).getId() == sword) { 
     		weapon = new Weapon(WeaponEnum.SWORD, 15); 
     		System.out.println("Spartan Warrior Collected Sword");
-    		model.set(row, col, blankSpace); 
+    		model.set(row, col, new Node(currentRow, currentCol, blankSpace)); // blankSpace); 
     		spartanWarrior.add(weapon); 
     		spartanWarrior.displayWeapons();  
     	}
-    	if (row <= model.size() - 1 && col <= model.size() -1 && model.get(row, col) == bomb) { 
+    	if (row <= model.size() - 1 && col <= model.size() -1 && model.get(row, col).getId() == bomb) { 
     		weapon = new Weapon(WeaponEnum.BOMB, 40); 
     		System.out.println("Spartan Warrior Collected Item Bomb");
-    		model.set(row, col, blankSpace); 
+    		model.set(row, col, new Node(currentRow, currentCol, blankSpace)); // blankSpace);
     		spartanWarrior.add(weapon); 
     		spartanWarrior.displayWeapons();
     	}
-    	if (row <= model.size() - 1 && col <= model.size() -1 && model.get(row, col) == hydrogenBomb) { 
+    	if (row <= model.size() - 1 && col <= model.size() -1 && model.get(row, col).getId() == hydrogenBomb) { 
     		weapon = new Weapon(WeaponEnum.HYDROGENBOMB, 75); 
     		System.out.println("Spartan Warrior Collected Item Hydrogen Bomb");
-    		model.set(row, col, blankSpace); 
+    		model.set(row, col, new Node(currentRow, currentCol, blankSpace)); // blankSpace);
     		spartanWarrior.add(weapon); 
     		spartanWarrior.displayWeapons();
     	}
-    	if (row <= model.size() - 1 && col <= model.size() -1 && model.get(row, col) == questionMark) { 
+    	if (row <= model.size() - 1 && col <= model.size() -1 && model.get(row, col).getId() == questionMark) { 
     		randValue = rand.nextInt(100 - 1 + 1) + 1;
     		weapon = new Weapon(WeaponEnum.randomWeapon(), randValue);
     		System.out.println("Spartan Warrior Collected Item Random Weapon with a Random Value");
-    		model.set(row, col, blankSpace);
+    		model.set(row, col, new Node(currentRow, currentCol, blankSpace)); // blankSpace);
     		spartanWarrior.add(weapon);
     		spartanWarrior.displayWeapons();
     	}
     	
     	// If the Current row and col are blank, then move the spartan warrior to that location
-        if (row <= model.size() - 1 && col <= model.size() - 1 && model.get(row, col) == ' ') {
-            model.set(currentRow, currentCol, '\u0020');
-            model.set(row, col, '5');
+        if (row <= model.size() - 1 && col <= model.size() - 1 && model.get(row, col).getId() == ' ') {
+            model.set(currentRow, currentCol, new Node(currentRow, currentCol, blankSpace));  // '\u0020');
+            model.set(row, col, new Node(currentRow, currentCol, '5')); //  '5');
             return true;
         }
         else {

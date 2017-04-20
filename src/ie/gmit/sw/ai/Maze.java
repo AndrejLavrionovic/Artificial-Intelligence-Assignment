@@ -7,13 +7,13 @@ import ie.gmit.sw.ai.spiders.SwarmOfSpiders;
 public class Maze {
     
     // Property
-    // Representation of maze in two dementional array;
-    private char[][] maze;
+    // Representation of maze in two dimensional array;
+    private Node[][] maze;
     private SwarmOfSpiders spiders;
 
     // Constructor
     public Maze(int dimension){
-        maze = new char[dimension][dimension];
+        maze = new Node[dimension][dimension];
         init();
         buildMaze();
         this.spiders = new SwarmOfSpiders();
@@ -40,7 +40,7 @@ public class Maze {
     private void init(){
         for (int row = 0; row < maze.length; row++){
             for (int col = 0; col < maze[row].length; col++){
-                maze[row][col] = '0'; //Index 0 is a hedge...
+                maze[row][col] = new Node(row, col, 0); //  '0'; //Index 0 is a hedge...
             }
         }
     }
@@ -82,16 +82,16 @@ public class Maze {
             int row = (int) (maze.length * Math.random());
             int col = (int) (maze[0].length * Math.random());
             
-            if (maze[row][col] == replace){
-                maze[row][col] = feature;
+            if (maze[row][col].getId() == replace) {
+                maze[row][col].setId(feature); //  = feature;
                 
                 // Count of 62 Exit points
                 // Make 61 Hedges, make one exit point from the last count 
                 if(feature == '\u003E') {
-                	maze[row][col] = '0';
+                	maze[row][col].setId('0'); // = '0';
                 	exitCount--;
                 	if(exitCount == 0) {
-                		maze[row][col] = '\u003E';
+                		maze[row][col].setId('\u003E'); // = '\u003E';
                 	}
                 }
                 
@@ -161,8 +161,8 @@ public class Maze {
                 counter++;
             }
         }
-        System.out.println("Exit Count : " + exitCount);
     }
+    
 
     // This method randomly populated the maze with empty spaces
     private void buildMaze(){ 
@@ -170,26 +170,28 @@ public class Maze {
             for (int col = 1; col < maze[row].length - 1; col++){
                 int num = (int) (Math.random() * 10);
                 if (num > 5 && col + 1 < maze[row].length - 1){
-                    maze[row][col + 1] = '\u0020'; //\u0020 = 0x20 = 32 (base 10) = SPACE
+                    maze[row][col + 1].setId('\u0020'); // = '\u0020'; //\u0020 = 0x20 = 32 (base 10) = SPACE
                 }else{
-                    if (row + 1 < maze.length - 1)maze[row + 1][col] = '\u0020';
+                    if (row + 1 < maze.length - 1){
+                    	maze[row + 1][col].setId('\u0020'); // = '\u0020';
+                    }
                 }
             }
         }
     }
 
     // returns maze
-    public char[][] getMaze(){
+    public Node[][] getMaze(){
         return this.maze;
     }
 
     // get sell content
-    public char get(int row, int col){
+    public Node get(int row, int col){
         return this.maze[row][col];
     }
 
     // Sets the given cell with item that is representing by char c
-    public void set(int row, int col, char c){
+    public void set(int row, int col, Node c){
         this.maze[row][col] = c;
     }
 
