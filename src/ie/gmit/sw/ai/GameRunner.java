@@ -14,7 +14,7 @@ public class GameRunner implements KeyListener {
     
     // Properties
     private static final int MAZE_DIMENSION = 100; // 100 cells
-    private static final int IMAGE_COUNT = 14; // items number (array length)
+    private static final int IMAGE_COUNT = 15; // items number (array length)
     private GameView view; // Instance for Game view
     private Maze model; // Instance for maze
     
@@ -232,7 +232,7 @@ public class GameRunner implements KeyListener {
         sprites[11] = new Sprite("Orange Spider", "resources/orange_spider_1.png", "resources/orange_spider_2.png");
         sprites[12] = new Sprite("Red Spider", "resources/red_spider_1.png", "resources/red_spider_2.png");
         sprites[13] = new Sprite("Yellow Spider", "resources/yellow_spider_1.png", "resources/yellow_spider_2.png");
-        // sprites[14] = new Sprite("Exit", "resources/spartanExit.png");
+        sprites[14] = new Sprite("Exit", "resources/spartanExit.png");
        
         return sprites;
     }

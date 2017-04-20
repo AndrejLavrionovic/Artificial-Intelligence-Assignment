@@ -33,7 +33,7 @@ public class Maze {
         addFeature('\u003B', '0', featureNumber); //; is a Orange Spider, 0 is a hedge
         addFeature('\u003C', '0', featureNumber); //< is a Red Spider, 0 is a hedge
         addFeature('\u003D', '0', featureNumber); //= is a Yellow Spider, 0 is a hedge
-        // addFeature('\u003F', '0', featureNumber); //? is the Spartan Warriors Exit, 0 is a hedge
+        addFeature('\u003E', '0', featureNumber); //> is the Spartan Warriors Exit, 0 is a hedge
     }
 
     // Builds the maze, initialy with hedges with no space, spiders and items.
@@ -66,13 +66,15 @@ public class Maze {
     * = - Yellow (61 of them)
     * 	  
     *     Warrior Exit
-    * ? - 1 Spartan warrior exit     
+    * > - 1 Spartan warrior exit     
     *
     * The number of items is the decimal representation of character
     * 
     * Using this method we'll initialize our Spiders
     */
     int spiderNumber = 0;
+    int exitCount = 62;
+    
     private void addFeature(char feature, char replace, int number){
         int counter = 0;
         
@@ -83,8 +85,18 @@ public class Maze {
             if (maze[row][col] == replace){
                 maze[row][col] = feature;
                 
+                // Count of 62 Exit points
+                // Make 61 Hedges, make one exit point from the last count 
+                if(feature == '\u003E') {
+                	maze[row][col] = '0';
+                	exitCount--;
+                	if(exitCount == 0) {
+                		maze[row][col] = '\u003E';
+                	}
+                }
+                
                 // If spider
-                if(feature > '\u0035' && feature < '\u003E'){
+                if(feature > '\u0035' && feature <= '\u003D'){
                     spiderNumber++;
                     Spider s = new Spider(spiderNumber, feature, row, col);
                     // setting for spider's characteristics
@@ -149,6 +161,7 @@ public class Maze {
                 counter++;
             }
         }
+        System.out.println("Exit Count : " + exitCount);
     }
 
     // This method randomly populated the maze with empty spaces
