@@ -146,7 +146,7 @@ public class SpiderController implements Movable, Runnable {
      */
     public void moveSpider(){
 
-        while(true){ // infinite run
+        while(spider.getHealth() > 0){ // infinite run
             
             try {
                 int direction = (int) (4 * Math.random() + 1); // generates number 1 - 4 inclusive
@@ -204,9 +204,11 @@ public class SpiderController implements Movable, Runnable {
 
         spider.setHealth(spider.getHealth() - 250); // assuming that spider lost its health
         spider.setLife(); // setting the life (0 - 2)
-        if(spider.getHealth() < 0){ // if spider is killed, then remove it from the list
-            this.maze.set(spider.getCurrentRow(), spider.getCurrentCol(), '0');
+        if(spider.getHealth() <= 0){ // if spider is killed, then remove it from the list
+            this.maze.set(spider.getCurrentRow(), spider.getCurrentCol(), ' ');
             this.maze.getSpiders().removeSpider(spider);
+            spider = null;
+            System.out.println("Spiders left => " + this.maze.getSpiders().getSpidersNumber());
         }
     }
 }
