@@ -47,10 +47,10 @@ public class SpartanWarrior {
 	public void setCurrentRow(int currentRow) {
 		this.currentRow = currentRow;
 	}
-	public int getCurrentColumn() {
+	public int getCurrentCol() {
 		return currentCol;
 	}
-	public void setCurrentColumn(int currentCol) {
+	public void setCurrentCol(int currentCol) {
 		this.currentCol = currentCol;
 	}
 

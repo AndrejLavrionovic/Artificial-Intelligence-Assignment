@@ -89,59 +89,68 @@ public class Maze {
                     Spider s = new Spider(spiderNumber, feature, row, col);
                     // setting for spider's characteristics
                     switch (feature){
-                        case '\u0036':
+                        case '\u0036': // Black
                             s.setLife();
                             s.setAnger(2);
                             s.setPower(0);
                             s.setDefence(2);
+                            s.setSence(3);
                             break;
-                        case '\u0037':
+                        case '\u0037': // Blue
                             s.setLife();
                             s.setAnger(1);
                             s.setPower(0);
                             s.setDefence(2);
+                            s.setSence(3);
                             break;
-                        case '\u0038':
+                        case '\u0038': // Brown
                             s.setLife();
                             s.setAnger(1);
                             s.setPower(1);
                             s.setDefence(1);
+                            s.setSence(2);
                             break;
-                        case '\u0039':
+                        case '\u0039': // Green
                             s.setLife();
                             s.setAnger(0);
                             s.setPower(0);
                             s.setDefence(2);
+                            s.setSence(0);
                             break;
-                        case '\u003A':
+                        case '\u003A': // Grey
                             s.setLife();
                             s.setAnger(0);
                             s.setPower(2);
                             s.setDefence(0);
+                            s.setSence(2);
                             break;
-                        case '\u003B':
+                        case '\u003B': // Orange
                             s.setLife();
                             s.setAnger(2);
                             s.setPower(1);
                             s.setDefence(0);
+                            s.setSence(4);
                             break;
-                        case '\u003C':
+                        case '\u003C': // Red
                             s.setLife();
                             s.setAnger(2);
                             s.setPower(2);
                             s.setDefence(0);
+                            s.setSence(5);
                             break;
-                        case '\u003D':
+                        case '\u003D': // Yellow
                             s.setLife();
                             s.setAnger(0);
                             s.setPower(1);
                             s.setDefence(1);
+                            s.setSence(1);
                             break;
                         default:
                             s.setLife();
                             s.setAnger(2);
                             s.setPower(2);
                             s.setDefence(0);
+                            s.setSence(5);
                             break;
                     }
                     spiders.addSpider(s);

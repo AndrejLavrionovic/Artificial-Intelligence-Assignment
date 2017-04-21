@@ -19,6 +19,8 @@ public class Spider {
     private double anger;
     private double power;
     private double defence;
+    private int sence;
+    private Path huntingPath = null;
     
     // Constructor
     public Spider(){} // default constructor
@@ -103,5 +105,13 @@ public class Spider {
 
     public void setHealth(double health) {
         this.health = health;
+    }
+
+    public int getSence() {
+        return sence;
+    }
+
+    public void setSence(int sence) {
+        this.sence = sence;
     }
 }

@@ -2,9 +2,10 @@ package ie.gmit.sw.ai.spiders;
 
 import ie.gmit.sw.ai.Maze;
 import ie.gmit.sw.ai.Movable;
+import ie.gmit.sw.ai.Node;
 import ie.gmit.sw.ai.SpartanWarrior;
-import ie.gmit.sw.ai.Weapon;
 import ie.gmit.sw.ai.fuzzylogic.FuzzyLogic;
+import ie.gmit.sw.ai.heuristicsearch.PathSearcher;
 import ie.gmit.sw.ai.nn.NNFacade;
 
 import java.util.logging.Level;
@@ -24,14 +25,16 @@ public class SpiderController implements Movable, Runnable {
     private Maze maze;
     private NNFacade gr;
     private FuzzyLogic fl;
+    private PathSearcher ps;
     private SpartanWarrior warrior;
 
     // Constructor that initializes instances
-    public SpiderController(Spider spider, Maze maze, NNFacade gr, FuzzyLogic fl, SpartanWarrior warrior){
+    public SpiderController(Spider spider, Maze maze, NNFacade gr, FuzzyLogic fl, PathSearcher ps, SpartanWarrior warrior){
         this.maze = maze;
         this.spider = spider;
         this.gr = gr;
         this.fl = fl;
+        this.ps = ps;
         this.warrior = warrior;
     }
 
@@ -145,10 +148,22 @@ public class SpiderController implements Movable, Runnable {
     *
      */
     public void moveSpider(){
-
+        int x1, x2, y1, y2;
         while(spider.getHealth() > 0){ // infinite run
-            
+
+            x1 = this.spider.getCurrentRow();
+            y1 = this.spider.getCurrentCol();
+            x2 = this.warrior.getCurrentRow();
+            y2 = this.warrior.getCurrentCol();
+
             try {
+                if(isHuntingDistance(x1, y1, x2, y2, this.spider.getSence())){
+                    Node spiderNode = new Node(x1, y1);
+                    Node warriorNode = new Node(x2, y2);
+                    this.ps.search(spiderNode, warriorNode);
+                    //System.out.println("Spider is in hunting area");
+                }
+
                 int direction = (int) (4 * Math.random() + 1); // generates number 1 - 4 inclusive
                 switch(direction){
                     case 1:
@@ -210,5 +225,13 @@ public class SpiderController implements Movable, Runnable {
             spider = null;
             System.out.println("Spiders left => " + this.maze.getSpiders().getSpidersNumber());
         }
+    }
+
+    private boolean isHuntingDistance(int x1, int y1, int x2, int y2, int spiderSence){
+        if((((x1 - x2) <= spiderSence) && ((x1 - x2) >= (-1 * spiderSence))) &&
+                (((y1 - y2) <= spiderSence) && ((y1 - y2) >= (-1 * spiderSence)))){
+            return true;
+        }
+        return false;
     }
 }

@@ -111,7 +111,7 @@ public class GameRunner implements KeyListener {
         view.setCurrentCol(currentCol);
         
         spartanWarrior.setCurrentRow(currentRow);
-        spartanWarrior.setCurrentColumn(currentCol);
+        spartanWarrior.setCurrentCol(currentCol);
     }
 
     /*

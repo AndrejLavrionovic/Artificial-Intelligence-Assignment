@@ -3,6 +3,7 @@ package ie.gmit.sw.ai.spiders;
 import ie.gmit.sw.ai.Maze;
 import ie.gmit.sw.ai.SpartanWarrior;
 import ie.gmit.sw.ai.fuzzylogic.FuzzyLogic;
+import ie.gmit.sw.ai.heuristicsearch.PathSearcher;
 import ie.gmit.sw.ai.nn.NNFacade;
 
 import java.util.concurrent.ExecutorService;
@@ -38,7 +39,7 @@ public class ControllersPool {
     public void doControlling(){
 
         for(int i = 0; i < this.spiders.getSpidersNumber(); i++){
-            executor.submit(new SpiderController(this.spiders.getSpiderByIndex(i), this.maze, new NNFacade(), new FuzzyLogic(), this.warrior));
+            executor.submit(new SpiderController(this.spiders.getSpiderByIndex(i), this.maze, new NNFacade(), new FuzzyLogic(), new PathSearcher(this.maze), this.warrior));
         }
     }
 
