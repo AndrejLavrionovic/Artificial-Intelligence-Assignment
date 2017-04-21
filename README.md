@@ -30,6 +30,14 @@ Here's the controls;
 * **Key-left** - Move left
 * **Key-right** - Move right
 
+At any point during the game, you can press the following keys, to provide extra information;
+* **Z** - Zooms out of map and displays all game characters as small dots.
+* **E** - Displays some in game information relating to the Spartan Warrior in a *JOptionPane*
+   * *Current Warrior Health*
+   * *Current Weapon Count*
+   * *Current Weapon (The one that will be used next)*
+   
+
 The warrior can pick up Weapons. 
 Here's a break down of the type of weapons available and the damage they do;
 * **FIST** - Default Weapon and Always available even when no other wepon in collection, Damage: 5
@@ -93,4 +101,6 @@ This project has used an Executor service to deal with threads, that allows each
 ---
 
 # Deployment
-To run this application...
+To run this application, download, unzip and run the jar file using the following command;
+
+```java -cp "./mazegame.jar;lib/*" ie.gmit.sw.game.GameRunner```
