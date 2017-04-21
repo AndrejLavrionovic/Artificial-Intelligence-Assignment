@@ -33,7 +33,7 @@ public class GameRunner implements KeyListener {
     // Game runner constructor
     public GameRunner() throws Exception{
     	
-    	spartanWarrior = new SpartanWarrior(currentRow, currentCol);
+    	spartanWarrior = new SpartanWarrior(currentRow, currentCol, null);
     	weapon = new Weapon(WeaponEnum.FIST, 5);
     	spartanWarrior.add(weapon);
     	

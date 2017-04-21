@@ -40,7 +40,7 @@ public class Maze {
     private void init(){
         for (int row = 0; row < maze.length; row++){
             for (int col = 0; col < maze[row].length; col++){
-                maze[row][col] = new Node(row, col, 0); //  '0'; //Index 0 is a hedge...
+                maze[row][col] = new Node(row, col, '0'); //  '0'; //Index 0 is a hedge...
             }
         }
     }

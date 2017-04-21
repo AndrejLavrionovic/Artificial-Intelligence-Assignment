@@ -15,19 +15,23 @@ public class SpartanWarrior extends Node {
 	private int currentRow;
 	private int currentCol;
 	private List<Weapon> weaponList = new ArrayList<Weapon>();
+	private Node[][] maze;
 
 	// Constructor
-	public SpartanWarrior(int currentRow, int currentCol) {
+	public SpartanWarrior(int currentRow, int currentCol, Node[][] maze) {
 		super(currentCol, currentCol, currentCol);
 		getLifeForce();
 		this.currentRow = currentRow;
 		this.currentCol = currentCol;
+		this.maze = maze;
 	}
+	
 
-	// Get the Spartans LifeForce 
+/*	// Get the Spartans LifeForce 
 	public SpartanWarrior() {
 		getLifeForce();
-	}
+	}*/
+	
 	
 	// Sets the damage taken in battle between Spartan Warrior and Spider
 	public void setDamageTaken(double damage){

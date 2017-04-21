@@ -2,6 +2,7 @@ package ie.gmit.sw.ai.spiders;
 
 import ie.gmit.sw.ai.Maze;
 import ie.gmit.sw.ai.Movable;
+import ie.gmit.sw.ai.Node;
 import ie.gmit.sw.ai.SpartanWarrior;
 import ie.gmit.sw.ai.Weapon;
 import ie.gmit.sw.ai.fuzzylogic.FuzzyLogic;
@@ -59,7 +60,7 @@ public class SpiderController implements Movable, Runnable {
         }
         // if spider will meet the warrior
         else if(row <= this.maze.size() - 1 && col <= this.maze.size() -1
-                && this.maze.get(row, col) == '5'){
+                && this.maze.get(row, col).getId() == '5'){
             try {
 
                 // get result from NN
@@ -174,26 +175,28 @@ public class SpiderController implements Movable, Runnable {
 
     public boolean isValidMove(int row, int col){
         if(row <= this.maze.size() - 1 && col <= this.maze.size() -1
-                && this.maze.get(row, col) == ' ') return true;
+                && this.maze.get(row, col).getId() == ' ') return true;
         return false;
     }
 
     public void doStep(int[] current, int destinationRow, int destinationCol, Spider spider){
-        this.maze.set(current[0], current[1], '\u0020'); // replace current cell with space
+        this.maze.set(current[0], current[1], new Node(destinationRow, destinationCol, '\u0020')); //'\u0020'); // replace current cell with space
 
         // set new coordinates for object
         spider.setCurrentRow(destinationRow);
         spider.setCurrentCol(destinationCol);
-        this.maze.set(destinationRow, destinationCol, spider.getSpiderType()); // place object to the destination cell
+        // this.maze.set(destinationRow, destinationCol, spider.getSpiderType()); // place object to the destination cell
+        this.maze.set(destinationRow, destinationCol, new Node(destinationRow, destinationCol, spider.getSpiderType()));
     }
 
     public void buildHedge(int[] current, int destinationRow, int destinationCol, Spider spider){
-        this.maze.set(current[0], current[1], '0'); // replace current cell with space
+        this.maze.set(current[0], current[1], new Node(destinationRow, destinationCol, '0')); // '0'); // replace current cell with space
 
         // set new coordinates for object
         spider.setCurrentRow(destinationRow);
         spider.setCurrentCol(destinationCol);
-        this.maze.set(destinationRow, destinationCol, spider.getSpiderType()); // place object to the destination cell
+        // this.maze.set(destinationRow, destinationCol, spider.getSpiderType()); // place object to the destination cell
+        this.maze.set(destinationRow, destinationCol, new Node(destinationRow, destinationCol, spider.getSpiderType()));
     }
 
     public void attack(Spider spider){
@@ -205,7 +208,7 @@ public class SpiderController implements Movable, Runnable {
         spider.setHealth(spider.getHealth() - 250); // assuming that spider lost its health
         spider.setLife(); // setting the life (0 - 2)
         if(spider.getHealth() <= 0){ // if spider is killed, then remove it from the list
-            this.maze.set(spider.getCurrentRow(), spider.getCurrentCol(), ' ');
+            this.maze.set(spider.getCurrentRow(), spider.getCurrentCol(), new Node(spider.getCurrentRow(), spider.getCurrentCol(), '0')); // ' ');
             this.maze.getSpiders().removeSpider(spider);
             spider = null;
             System.out.println("Spiders left => " + this.maze.getSpiders().getSpidersNumber());

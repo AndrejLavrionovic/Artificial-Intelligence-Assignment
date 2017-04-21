@@ -1,6 +1,7 @@
 package ie.gmit.sw.ai;
 
 import java.awt.Color;
+
 public class Node {
 	public enum Direction {North, South, East, West};
 	private Node parent;
