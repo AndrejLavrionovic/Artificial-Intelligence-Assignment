@@ -31,29 +31,66 @@ Here's the controls;
 * **Key-right** - Move right
 
 The warrior can pick up Weapons. 
-Here's a break down of te type of weapons available and what the damage they do;
+Here's a break down of the type of weapons available and the damage they do;
 * **FIST** - Default Weapon and Always available even when no other wepon in collection, Damage: 5
 * **SWORD** - Damage: 15
 * **BOMB** - Damage: 40
 * **HYDROGENBOMB** - Damage: 75
 * **QUESTION MARK** - Picks a random weapon consisting of Sword, Bomb or Hydrogen Bomb. Damage: Random number between 1-100
+
+Each Spider has 500 health and the warrior has 1000 health. The game is over when the warrior's health is 0.
+
 ---
 
 # Application Features
 
 ## Fuzzy Logic
-Fuzzy Logic has been incorporated into this project by using the Fuzzy Logic API jar file. Each Spider (which are independently threaded), will move around the maze and if they come in contact with the Spartan warrior, ie they are both in the same cell simultaneously, then the Fuzzy Logic is triggered. The contents of the FCL file (Fuzzy Control Logic) will determine the outcome of the battle using fuzzy logic liguistic variables and ruleblocks. Once the outcome has been ascertained, the result will reduce the health of both the spider and the Spartan Warrior. 
+Fuzzy Logic has been incorporated into this project by using the Fuzzy Logic API jar file. Each Spider (which are independently threaded), will move around the maze and if they come in contact with the Spartan warrior, ie they ocupy cells beside one another, then the Fuzzy Logic is triggered. The contents of the FCL file (Fuzzy Control Logic) will determine the outcome of the battle using fuzzy logic linguistic variables and ruleblocks. Once the outcome has been ascertained, the result will reduce the health of both the spider and the Spartan Warrior. The warrior has 1000 health and each spider has 500, with each altercation reducing their health by 250.
 
-As the Fuzzy Logic outputs a Crisp Output, we needed to figure out what to do with this value. 
+As the Fuzzy Logic outputs a Crisp Output, we needed to figure out what to do with this value. If the value was high, ie the result was favourable like for example 75, then the remaining amount of 25 would be the amount calculated as the damage taken by the warrior. 
 
 
 ## Neural Network
+We have incorporated a 3 layer back propagation Neural Network into our project. The 3 layers have been caluclated using the following code excerpt, taken from the NeuralNetwork.java file;
+```java
+public void feedForward(){ 
+		//Feed the inputs forward through the network as a weighted sum
+		double sum = 0.0d;
+		
+		//Compute Input->Hidden Layer
+		for (int hid = 0; hid < hidden.length; hid++){
+			sum = 0.0d;
+			for (int in = 0; in < inputs.length; in++) sum += inputs[in] * ihW[in][hid];
+			sum+= ihW[inputs.length][hid];
+			hidden[hid] = activator.activate(sum); //Apply activation function
+		}
+	
+		//Compute Hidden->Output Layer
+		for (int out = 0; out < outputs.length; out++){
+			sum = 0.0d;
+			for (int hid = 0; hid < hidden.length; hid++)	sum += hidden[hid] * hoW[hid][out];		
+			sum+= hoW[hidden.length][out];
+			outputs[out] = activator.activate(sum); //Apply activation function
+		}
+	}
+```
+
+The network will be trained using the following;
+
+**data**
+[Health, Anger, Strength, Defence]
+
+**expected**
+[Walk Away, Attack, Build Hedge, Run Away]
+
+Once the network is trained each spider, will be able to make any of the above Expected desisions, when they come in contact with the Spartan Warrior. The Attack option will trigger the Fuzzy Logic.
 
 ## Threaded Characters
+This project has used an Executor service to deal with threads, that allows each spider to navigate independently around the maze.  
 
 ## AI Search Algorithms (Document what we have tried)
 
 ---
 
 # Deployment
-
+To run this application...
