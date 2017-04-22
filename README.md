@@ -91,12 +91,17 @@ The network will be trained using the following;
 **expected**
 [Walk Away, Attack, Build Hedge, Run Away]
 
+Each type of spider has different stats. Spiders will make different solutions, depend of its type. For example red spiders are most agressive, but green spiders are most friendly and never will attack.
+
 Once the network is trained each spider, will be able to make any of the above Expected desisions, when they come in contact with the Spartan Warrior. The Attack option will trigger the Fuzzy Logic.
 
 ## Threaded Characters
 This project has used an Executor service to deal with threads, that allows each spider to navigate independently around the maze.  
 
 ## AI Search Algorithms (Document what we have tried)
+
+As AI Search Algorithm was taking BestFirstTraversor. It is not fully implemented. The issue is with populating the queue in traversor.
+We couldnt figure out why children nodes are created, but queue was not populated.
 
 ---
 
