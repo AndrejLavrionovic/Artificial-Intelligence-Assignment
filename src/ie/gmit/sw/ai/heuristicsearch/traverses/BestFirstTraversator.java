@@ -17,6 +17,8 @@ public class BestFirstTraversator implements Traversator {
         this.goal = goal;
     }
 
+    private LinkedList<Node> stack = new LinkedList<>();
+
     public void traverse(Node[][] maze, Node node) {
 
         LinkedList<Node> queue = new LinkedList<Node>();
@@ -34,9 +36,13 @@ public class BestFirstTraversator implements Traversator {
 
             if (node.isGoalNode()){
                 System.out.println("goal node is found");
+                TraversatorStats ts = new TraversatorStats();
                 //time = System.currentTimeMillis() - time; //Stop the clock
                 TraversatorStats.printStats(node, time, visitCount);
-                //break;
+
+                setStack(node);
+
+                break;
             }
 
             try { //Simulate processing each expanded node
@@ -75,5 +81,18 @@ public class BestFirstTraversator implements Traversator {
             }
             System.out.print("]\n\n");
         }
+    }
+
+    private void setStack(Node node){
+        while (node != null){
+            this.stack.addLast(node);
+            node = node.getParent();
+        }
+    }
+
+    public LinkedList<Node> getStack(){
+        if(this.stack != null && this.stack.size() > 0)
+            return this.stack;
+        else return null;
     }
 }

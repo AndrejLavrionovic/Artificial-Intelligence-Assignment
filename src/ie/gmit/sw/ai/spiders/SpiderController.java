@@ -159,27 +159,51 @@ public class SpiderController implements Movable, Runnable {
                     Node spiderNode = new Node(x1, y1);
                     Node warriorNode = new Node(x2, y2);
                     PathSearcher ps = new PathSearcher(this.maze);
-                    ps.search(spiderNode, warriorNode);
+                    spider.setHuntingPath(ps.search(spiderNode, warriorNode));
+                    if(spider.getHuntingPath().pathSize() > 0){
+                        spider.getHuntingPath().takeLastNodeOf();
+                        int row = spider.getHuntingPath().getLastNode().getRow();
+                        int col = spider.getHuntingPath().getLastNode().getCol();
+                        move(row, col, spider);
+                    }
+                    else{
+                        int direction = (int) (4 * Math.random() + 1); // generates number 1 - 4 inclusive
+                        switch (direction) {
+                            case 1:
+                                move(spider.getCurrentRow() - 1, spider.getCurrentCol(), spider); // Move North
+                                break;
+                            case 2:
+                                move(spider.getCurrentRow(), spider.getCurrentCol() + 1, spider); // Move East
+                                break;
+                            case 3:
+                                move(spider.getCurrentRow() + 1, spider.getCurrentCol(), spider); // Move South
+                                break;
+                            case 4:
+                                move(spider.getCurrentRow(), spider.getCurrentCol() - 1, spider); // Move West
+                                break;
+                        }
+                    }
                     //System.out.println("Spider is in hunting area");
                 }
-
-                int direction = (int) (4 * Math.random() + 1); // generates number 1 - 4 inclusive
-                switch(direction){
-                    case 1:
-                        move(spider.getCurrentRow() - 1, spider.getCurrentCol(), spider); // Move North
-                        break;
-                    case 2:
-                        move(spider.getCurrentRow(), spider.getCurrentCol() + 1, spider); // Move East
-                        break;
-                    case 3:
-                        move(spider.getCurrentRow() + 1, spider.getCurrentCol(), spider); // Move South
-                        break;
-                    case 4:
-                        move(spider.getCurrentRow(), spider.getCurrentCol() - 1, spider); // Move West
-                        break;
+                else {
+                    int direction = (int) (4 * Math.random() + 1); // generates number 1 - 4 inclusive
+                    switch (direction) {
+                        case 1:
+                            move(spider.getCurrentRow() - 1, spider.getCurrentCol(), spider); // Move North
+                            break;
+                        case 2:
+                            move(spider.getCurrentRow(), spider.getCurrentCol() + 1, spider); // Move East
+                            break;
+                        case 3:
+                            move(spider.getCurrentRow() + 1, spider.getCurrentCol(), spider); // Move South
+                            break;
+                        case 4:
+                            move(spider.getCurrentRow(), spider.getCurrentCol() - 1, spider); // Move West
+                            break;
+                    }
                 }
                 // System.out.println("==> Spider coordinates == (" + spider.getCurrentRow() + " : " + spider.getCurrentCol() + ")");
-                Thread.sleep(5000); // Sleep for 1 sec.
+                Thread.sleep(1000); // Sleep for 1 sec.
             } catch (InterruptedException ex) {
                 Logger.getLogger(SpiderController.class.getName()).log(Level.SEVERE, null, ex);
             }

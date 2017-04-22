@@ -1,5 +1,9 @@
 package ie.gmit.sw.ai.spiders;
 
+import ie.gmit.sw.ai.Node;
+
+import java.util.LinkedList;
+
 /**
  *
  * @author Andrej Lavrinovic
@@ -26,6 +30,7 @@ public class Spider {
     public Spider(){} // default constructor
 
     public Spider(int spiderNumber, char spiderType, int currentRow, int currentCol) { // parametrised constructor
+        this.huntingPath = new Path();
         this.spiderNumber = spiderNumber;
         this.spiderType = spiderType;
         this.currentRow = currentRow;
@@ -113,5 +118,16 @@ public class Spider {
 
     public void setSence(int sence) {
         this.sence = sence;
+    }
+
+    public void setHuntingPath(LinkedList<Node> huntingPath) {
+        this.huntingPath.clearPath();
+        for(Node n : huntingPath){
+            this.huntingPath.insertNode(n);
+        }
+    }
+
+    public Path getHuntingPath(){
+        return this.huntingPath;
     }
 }

@@ -1,19 +1,25 @@
 package ie.gmit.sw.ai.heuristicsearch.traverses;
 
 import ie.gmit.sw.ai.Node;
+import ie.gmit.sw.ai.spiders.Path;
+
+import java.util.LinkedList;
 
 /**
  * @author John Healy
  * Refactored by Andrej Lavrinovic on 21/04/2017.
  */
 public class TraversatorStats {
+
+    public static LinkedList<Node> queue = new LinkedList<>();
+
     public static void printStats(Node node, long time, int visitCount){
         double depth = 0;
 
         int count = 0;
         while (node != null){
             count++;
-            System.out.println("Node (" + count + ") ===> (" + node.getRow() + ", " + node.getCol() + ")");
+            queue.addLast(node);
             node = node.getParent();
             depth++;
         }

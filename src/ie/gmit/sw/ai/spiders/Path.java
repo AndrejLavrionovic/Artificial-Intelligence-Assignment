@@ -31,7 +31,11 @@ public class Path {
         path.clear();
     }
 
-    public Node getNode() {
-        return path.pollFirst();
+    public Node takeLastNodeOf() {
+        return path.pollLast();
+    }
+
+    public Node getLastNode(){
+        return path.getLast();
     }
 }

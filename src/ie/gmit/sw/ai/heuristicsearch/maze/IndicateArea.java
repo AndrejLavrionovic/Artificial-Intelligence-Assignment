@@ -62,9 +62,11 @@ public class IndicateArea implements SearchingAreaIndicator {
                 }
                 if(cell.getRow() == this.goalNode.getRow() && cell.getCol() == this.goalNode.getCol()){
                     cell.setGoalNode(true);
+                    cell.setWalkable(true);
                 }
                 if(cell.getRow() == this.initialNode.getRow() && cell.getCol() == this.initialNode.getCol()){
                     cell.setInitial(true);
+                    cell.setWalkable(true);
                 }
 
                 //...................................

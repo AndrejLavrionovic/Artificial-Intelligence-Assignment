@@ -7,6 +7,8 @@ import ie.gmit.sw.ai.heuristicsearch.maze.SearchingAreaIndicator;
 import ie.gmit.sw.ai.heuristicsearch.traverses.BestFirstTraversator;
 import ie.gmit.sw.ai.heuristicsearch.traverses.Traversator;
 
+import java.util.LinkedList;
+
 /**
  *
  * @author Andrej Lavrinovic g00196984
@@ -21,7 +23,7 @@ public class PathSearcher {
     }
 
     // this method must be called for searching the shortest path from the spider to the warrior.
-    public void search(Node initialNode, Node goalNode){
+    public LinkedList<Node> search(Node initialNode, Node goalNode){
         // 1) indicate searching area
         SearchingAreaIndicator area = new IndicateArea(getAreaHeight(initialNode, goalNode), getAreaWidth(initialNode, goalNode),
                 getLeftTopCorner(initialNode, goalNode), this.superMaze, goalNode, initialNode);
@@ -30,6 +32,8 @@ public class PathSearcher {
         Traversator t = new BestFirstTraversator(goalNode);
 
         t.traverse(area.getMaze(), initialNode);
+
+        return t.getStack();
     }
 
     private int getAreaHeight(Node initialNode, Node goalNode){
