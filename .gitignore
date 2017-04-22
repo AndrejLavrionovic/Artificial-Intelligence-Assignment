@@ -23,7 +23,9 @@ build.xml
 .idea
 project.iml
 out
+/src/META-INF/
 
 # Eclipse #
 .classpath
 .project
+
