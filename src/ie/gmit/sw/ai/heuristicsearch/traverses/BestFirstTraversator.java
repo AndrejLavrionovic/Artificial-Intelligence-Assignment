@@ -27,6 +27,8 @@ public class BestFirstTraversator implements Traversator {
 
         while(!queue.isEmpty()){
             node = queue.poll();
+            System.out.println("Node is => (" + node.getRow() + ", " + node.getCol() + ")");
+            System.out.println("Goal node is => (" + goal.getRow() + ", " + goal.getCol() + ")");
             node.setVisited(true);
             visitCount++;
 
@@ -46,13 +48,32 @@ public class BestFirstTraversator implements Traversator {
             Node[] children = node.children(maze);
             for (int i = 0; i < children.length; i++) {
                 if (children[i] != null && !children[i].isVisited()){
+                    System.out.println("Children Num: =>" + i);
                     children[i].setParent(node);
                     queue.addFirst(children[i]);
                 }
             }
 
+            System.out.println("Childrens of this node => ");
+            System.out.print("[");
+            for(int i = 0; i < queue.size(); i++){
+                if(i == queue.size() - 1)
+                    System.out.print("(" + queue.get(i).getRow() + ", " + queue.get(i).getCol() + ")");
+                else System.out.print("(" + queue.get(i).getRow() + ", " + queue.get(i).getCol() + ") -> ");
+            }
+            System.out.print("]\n");
+
             //Sort the whole queue. Effectively a priority queue, first in, best out
             Collections.sort(queue,(Node current, Node next) -> current.getHeuristic(goal) - next.getHeuristic(goal));
+
+            System.out.println("Nodes in the sorted queue");
+            System.out.print("[");
+            for(int i = 0; i < queue.size(); i++){
+                if(i == queue.size() - 1)
+                    System.out.print("(" + queue.get(i).getRow() + ", " + queue.get(i).getCol() + ")");
+                else System.out.print("(" + queue.get(i).getRow() + ", " + queue.get(i).getCol() + ") -> ");
+            }
+            System.out.print("]\n\n");
         }
     }
 }

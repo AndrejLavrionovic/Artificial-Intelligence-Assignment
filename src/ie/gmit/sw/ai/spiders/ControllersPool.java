@@ -39,7 +39,7 @@ public class ControllersPool {
     public void doControlling(){
 
         for(int i = 0; i < this.spiders.getSpidersNumber(); i++){
-            executor.submit(new SpiderController(this.spiders.getSpiderByIndex(i), this.maze, new NNFacade(), new FuzzyLogic(), new PathSearcher(this.maze), this.warrior));
+            executor.submit(new SpiderController(this.spiders.getSpiderByIndex(i), this.maze, new NNFacade(), new FuzzyLogic(), this.warrior));
         }
     }
 

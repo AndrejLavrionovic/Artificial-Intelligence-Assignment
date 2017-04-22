@@ -118,7 +118,7 @@ public class Node {
         if (col < maze[row].length - 1 && maze[row][col + 1].hasDirection(Direction.West)  && walkable) children.add(maze[row][col + 1]); //Add East
         */
 
-        return (Node[]) children.toArray(new Node[children.size()]);
+        return children.toArray(new Node[children.size()]);
     }
 
     public Node[] adjacentNodes(Node[][] maze){

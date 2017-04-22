@@ -25,16 +25,14 @@ public class SpiderController implements Movable, Runnable {
     private Maze maze;
     private NNFacade gr;
     private FuzzyLogic fl;
-    private PathSearcher ps;
     private SpartanWarrior warrior;
 
     // Constructor that initializes instances
-    public SpiderController(Spider spider, Maze maze, NNFacade gr, FuzzyLogic fl, PathSearcher ps, SpartanWarrior warrior){
+    public SpiderController(Spider spider, Maze maze, NNFacade gr, FuzzyLogic fl, SpartanWarrior warrior){
         this.maze = maze;
         this.spider = spider;
         this.gr = gr;
         this.fl = fl;
-        this.ps = ps;
         this.warrior = warrior;
     }
 
@@ -160,7 +158,8 @@ public class SpiderController implements Movable, Runnable {
                 if(isHuntingDistance(x1, y1, x2, y2, this.spider.getSence())){
                     Node spiderNode = new Node(x1, y1);
                     Node warriorNode = new Node(x2, y2);
-                    this.ps.search(spiderNode, warriorNode);
+                    PathSearcher ps = new PathSearcher(this.maze);
+                    ps.search(spiderNode, warriorNode);
                     //System.out.println("Spider is in hunting area");
                 }
 
@@ -180,7 +179,7 @@ public class SpiderController implements Movable, Runnable {
                         break;
                 }
                 // System.out.println("==> Spider coordinates == (" + spider.getCurrentRow() + " : " + spider.getCurrentCol() + ")");
-                Thread.sleep(1000); // Sleep for 1 sec.
+                Thread.sleep(5000); // Sleep for 1 sec.
             } catch (InterruptedException ex) {
                 Logger.getLogger(SpiderController.class.getName()).log(Level.SEVERE, null, ex);
             }
