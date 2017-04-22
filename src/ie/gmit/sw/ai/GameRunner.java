@@ -137,8 +137,10 @@ public class GameRunner implements KeyListener {
                 if (isValidMove(currentRow + 1, currentCol)) currentRow++;        	  	
         }else if (e.getKeyCode() == KeyEvent.VK_Z) {
                 view.toggleZoom();
+        }else if (e.getKeyCode() == KeyEvent.VK_E) {
+        	JOptionPane.showMessageDialog(null, "Current Warrior Health : " + spartanWarrior.getLifeForce() + "\nWeapon Count : " + spartanWarrior.weaponCount()  + "\nNext Weapon : " + spartanWarrior.displayNextWeapon());
         }else{
-                return;
+               return;
         }
         
         updateView(); // changes the view relatively to the Spartan Warrior

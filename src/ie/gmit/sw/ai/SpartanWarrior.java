@@ -99,6 +99,12 @@ public class SpartanWarrior {
 		return lifeForce;
 	}
 	
+	public Weapon displayNextWeapon() {
+		if(weaponList.size() <= 1)
+			return weaponList.get(0);
+		return weaponList.get(1);
+	}
+	
 	// Display the Spartan's Current Weapons
 	public void displayWeapons(){
 		for (Weapon weapon : weaponList) {
