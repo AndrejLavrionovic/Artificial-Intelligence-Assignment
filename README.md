@@ -98,14 +98,15 @@ Once the network is trained each spider, will be able to make any of the above E
 ## Threaded Characters
 This project has used an Executor service to deal with threads, that allows each spider to navigate independently around the maze.  
 
-## AI Search Algorithms (Document what we have tried)
+## AI Search Algorithms
 
-As AI Search Algorithm was taking BestFirstTraversor. It is not fully implemented. The issue is with populating the queue in traversor.
-We couldnt figure out why children nodes are created, but queue was not populated.
+As AI Search Algorithm there was implemented BestFirstTraversor. When the spider is close to the warrior (distance is different for differernt spider colours) the algorithm is searching for shortest path to the warrior and spider start to hunting. The issue is there if spider behind the hedge, then sprite is freeze and mot moving anymore.
 
 ---
 
 # Deployment
 To run this application, download, unzip and run the jar file using the following command;
 
-```java -cp "./mazegame.jar;lib/*" ie.gmit.sw.game.GameRunner```
+```bash
+java -cp ./game.jar ie.gmit.sw.game.GameRunner
+```
